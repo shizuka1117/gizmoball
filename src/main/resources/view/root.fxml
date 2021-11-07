@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
+   <top>
+       <MenuBar fx:id="head" prefHeight="30" style="-fx-background-color: lightblue;" styleClass="action-btn" BorderPane.alignment="CENTER">
+           <menus>
+               <Menu mnemonicParsing="false" text="文件">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="新建游戏" />
+                       <MenuItem mnemonicParsing="false" text="保存游戏" />
+                       <MenuItem mnemonicParsing="false" text="读取游戏" />
+                   </items>
+               </Menu>
+           </menus>
+       </MenuBar>
+   </top>
+   <right>
+      <VBox prefWidth="180.0" BorderPane.alignment="CENTER">
+         <children>
+             <Label alignment="CENTER" prefHeight="35.0" prefWidth="200.0" style="-fx-padding:10;" text="操作" />
+            <GridPane alignment="CENTER" prefHeight="180.0" prefWidth="180.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" maxWidth="90.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" maxWidth="90.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" maxHeight="90.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" maxHeight="90.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+                <fx:define>
+                    <ToggleGroup fx:id="action" />
+                </fx:define>
+               <children>
+                  <RadioButton mnemonicParsing="false" text="RadioButton" toggleGroup="$action"/>
+                  <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.columnIndex="1" toggleGroup="$action"/>
+                  <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.rowIndex="1" toggleGroup="$action"/>
+                  <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.columnIndex="1" GridPane.rowIndex="1" toggleGroup="$action"/>
+               </children>
+            </GridPane>
+             <Label alignment="CENTER" prefHeight="35.0" prefWidth="200.0" style="-fx-padding:10;" text="模式" />
+             <GridPane alignment="CENTER" prefHeight="90.0" prefWidth="180.0">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+             </GridPane>
+             <Pane>
+
+             </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </right>
+   <left>
+       <VBox prefWidth="180.0" BorderPane.alignment="CENTER">
+          <children>
+          <Label alignment="CENTER" prefWidth="200.0" style="-fx-padding:10;" text="组件" />
+         <GridPane alignment="CENTER" prefHeight="450.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+         </GridPane>
+          </children>
+       </VBox>
+   </left>
+   <center>
+      <Pane prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
