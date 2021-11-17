@@ -18,11 +18,12 @@ import java.io.Serializable;
 public class Item extends JComponent {
     int x = 50;//左上角x坐标
     int y = 50;//左上角y坐标
-    double scale;//放大倍数（必须>=1）
+    int scale;//放大倍数（必须>=1）
     double theta;//旋转角度
     Image image;
 
     //其他公有属性...
+
 
     public Item(Integer x, Integer y, Image image){
         setX(x);
@@ -31,6 +32,7 @@ public class Item extends JComponent {
         System.out.println(this.x+" "+this.y);
         setSize(25, 25);
         setBounds(this.x, this.y, 25, 25);
+        this.scale = 1;
         setVisible(true);
     }
 
@@ -57,7 +59,7 @@ public class Item extends JComponent {
         return scale;
     }
 
-    public void setScale(double scale) {
+    public void setScale(int scale) {
         this.scale = scale;
     }
 
@@ -86,4 +88,14 @@ public class Item extends JComponent {
         super.paint(g);
         //g.drawImage(image, x, y,25,25,null);
     }
+
+    //提供统一接口，在子类里进行重写的方法
+    public void enlarge(){ } //放大
+
+    public void reduce(){ }  //缩小
+
+    public void rotation(){ } //旋转
+
+    public void initInWorld(){ }  //在world中创建该item对应的刚体
+
 }
