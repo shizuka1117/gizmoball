@@ -47,12 +47,24 @@ public class Ball extends Item {
     }
 
     public int getX(){
-        int X = (int)ballInWorld.getPosition().x;
+        int X;
+        if(ballInWorld != null){
+            X = (int)ballInWorld.getPosition().x;
+        }
+        else {
+            X = x;
+        }
         return X;
     }
 
     public int getY(){
-        int Y = (int)ballInWorld.getPosition().y;
+        int Y;
+        if(ballInWorld != null){
+            Y = (int)ballInWorld.getPosition().y;
+        }
+        else {
+            Y = y;
+        }
         return Y;
     }
 

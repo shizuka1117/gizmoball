@@ -61,15 +61,22 @@ public class ToolPane extends JPanel {
             GamePane gamePane = gameFrame.getGamePane();
             Item item = (Item)gamePane.getCurItem();
             //TODO: 不同的tool实现不同的操作
+            System.out.println(e.getActionCommand());
             if(item!=null){
                 switch (e.getActionCommand()){
                     //TODO:调用旋转、删除等函数，写在item或者具体类中
                     case "rotate":
-                        System.out.println("rotate");
+                        item.rotation();
                         break;
-                    case "remove":break;
-                    case "zoom-in":break;
-                    case "zoom_out":break;
+                    case "remove":
+                        //todo:直接删除？
+                        break;
+                    case "zoomIn":
+                        item.enlarge();
+                        break;
+                    case "zoomOut":
+                        item.reduce();
+                        break;
                 }
                 gamePane.repaint();
             }

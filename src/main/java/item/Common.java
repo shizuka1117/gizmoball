@@ -36,7 +36,6 @@ public class Common {
 
     public static void step(){
         world.step(TIME_STEP,6,6);
-        System.out.println(world.getBodyCount());
     }
 
 
