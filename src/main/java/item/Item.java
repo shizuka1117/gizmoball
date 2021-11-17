@@ -84,6 +84,6 @@ public class Item extends JComponent {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        g.drawImage(image, x, y,25,25,null);
+        //g.drawImage(image, x, y,25,25,null);
     }
 }

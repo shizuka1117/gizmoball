@@ -1,9 +1,9 @@
-package panel;
-
 import listener.MyKeyListener;
+import panel.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
