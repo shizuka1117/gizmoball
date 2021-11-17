@@ -1,5 +1,7 @@
 package util;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 
 /**
@@ -55,5 +57,13 @@ public class IconUtil extends Properties {
         @Override
         public Enumeration<?> propertyNames() {
             return Collections.enumeration(keys);
+        }
+
+        public ImageIcon getIcon(String iconName){
+            ImageIcon icon = new ImageIcon(iconName);
+            System.out.println(iconName);
+            icon.setImage(icon.getImage().getScaledInstance(40, 40,
+                    Image.SCALE_AREA_AVERAGING));
+            return icon;
         }
 }

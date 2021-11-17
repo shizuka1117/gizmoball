@@ -31,8 +31,8 @@ public class ToolPane extends JPanel {
                 String iconName = keys.nextElement().toString();
                 //根据key获取value
                 ImageIcon icon = new ImageIcon(kv.getProperty(iconName));
-                icon.setImage(icon.getImage().getScaledInstance(25, 25,
-                        Image.SCALE_DEFAULT));
+                icon.setImage(icon.getImage().getScaledInstance(40, 40,
+                        Image.SCALE_AREA_AVERAGING));
                 JLabel label = new JLabel();
                 label.setIcon(icon);
                 JRadioButton button = new JRadioButton();
@@ -54,9 +54,9 @@ public class ToolPane extends JPanel {
     }
 
     private class ToolActionListener implements ActionListener{
-
         @Override
         public void actionPerformed(ActionEvent e) {
+            //TODO: 不同的tool实现不同的操作
             switch (e.getActionCommand()){
                 case "rotate":
                     break;

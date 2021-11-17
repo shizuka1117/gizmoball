@@ -1,17 +1,16 @@
+import listener.MyKeyListener;
 import panel.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Properties;
 
 public class GameFrame extends JFrame {
     /**
      * 静态代码块，初始化加载图片
      */
-    private GamePane gamePane;
-    private ToolPane toolPane;
 
     public GameFrame(){
         //初始化GameFrame顶层窗口
@@ -28,7 +27,9 @@ public class GameFrame extends JFrame {
         MenuPane menuPane = new MenuPane();
         setJMenuBar(menuPane);
 
-        gamePane = new GamePane();
+        GamePane gamePane = new GamePane();
+        MyKeyListener myKeyListener = new MyKeyListener();
+        gamePane.addMouseListener(myKeyListener);
         add(gamePane);
 
         JPanel rightPane = new JPanel();
@@ -41,14 +42,18 @@ public class GameFrame extends JFrame {
         rightPane.add(toolPane);
         rightPane.add(modePane);
 
-//        setBackground(Color.blue);
+        setBackground(Color.blue);
         add(rightPane);
         pack();
         setVisible(true);
 
     }
 
-    public static void main(String[] args) {
-        new GameFrame();
+    public static void main(String[] args) throws InterruptedException {
+        GameFrame gameFrame = new GameFrame();
+        while(true){
+            gameFrame.repaint();
+            Thread.sleep(1000);
+        }
     }
 }

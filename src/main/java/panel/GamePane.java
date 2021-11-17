@@ -14,24 +14,22 @@ import java.util.List;
 
 import item.*;
 
-public class GamePane extends JPanel {
-    Item curItem;
-    List<Item> itemList;
+public class GamePane extends JPanel implements Runnable{
+    String nextItemName;
     public GamePane(){
-        itemList = new LinkedList<>();
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
     }
     public void addItem(Item item){
-        itemList.add(item);
+        add(item);
     }
 
-    public void setCurItem(Item item){
-        curItem=item;
+    public String getNextItemName() {
+        return nextItemName;
     }
 
-    public Item getCurItem(){
-        return curItem;
+    public void setNextItemName(String nextItemName) {
+        this.nextItemName = nextItemName;
     }
 
     @Override
@@ -49,5 +47,24 @@ public class GamePane extends JPanel {
         for(int i = 1;i < 20;i ++) {
             g2.drawLine(25*i,0,25*i,500);
         }
+        for(Component i: getComponents()){
+            i.paint(g);
+        }
+    }
+
+    @Override
+    public void run() {
+        try{
+            while (true){
+                Thread.sleep(30);
+                this.repaint();
+                logic();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void logic() {
     }
 }
