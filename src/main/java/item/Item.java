@@ -33,6 +33,7 @@ public class Item extends JComponent {
         setSize(25, 25);
         setBounds(this.x, this.y, 25, 25);
         this.scale = 1;
+        this.theta = 0;
         setVisible(true);
     }
 

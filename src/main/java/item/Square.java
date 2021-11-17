@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class Square extends Item{
     private int width;
@@ -16,6 +17,7 @@ public class Square extends Item{
     float hw ;
     float hh ; //半宽 & 高
     Body squareInWorld;
+    AffineTransform at = new AffineTransform();
 
     //Constructor
     public Square(Integer x, Integer y, Image image){
@@ -47,7 +49,9 @@ public class Square extends Item{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        g.drawImage(image,x,y,width,height,null);
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setTransform(at);
+        g2d.drawImage(image,x,y,width,height,null);
     }
 
     @Override
@@ -68,7 +72,9 @@ public class Square extends Item{
 
     @Override
     public void rotation() {
-        // do nothing
+        theta = (theta+90)%360;
+        System.out.println(theta);
+        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 
 }

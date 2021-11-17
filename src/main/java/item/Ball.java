@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 /**
  * 小球继承Runnable用于多线程运行
@@ -18,6 +19,7 @@ public class Ball extends Item {
     int width;
     int height;
     public Body ballInWorld;
+    AffineTransform at = new AffineTransform();
     // 是否被吸收,是则不再显示
     private boolean isAbsorbed = false;
 
@@ -72,7 +74,9 @@ public class Ball extends Item {
     public void paint(Graphics g){
         super.paint(g);
         if(!isAbsorbed){
-            g.drawImage(image,this.getX(), this.getY(),width,height,null);
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setTransform(at);
+            g2d.drawImage(image,this.getX(), this.getY(),width,height,null);
         }
 
     }
@@ -98,5 +102,8 @@ public class Ball extends Item {
     @Override
     public void rotation() {
         // do nothing
+        theta = (theta+90)%360;
+        System.out.println(theta);
+        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 }
