@@ -19,4 +19,5 @@ public class ModePane extends JPanel {
         add(button1);
         add(button2);
     }
+    //TODO:处理不同的mode
 }

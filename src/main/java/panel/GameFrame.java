@@ -1,9 +1,9 @@
+package panel;
+
 import listener.MyKeyListener;
-import panel.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -12,6 +12,7 @@ public class GameFrame extends JFrame {
      * 静态代码块，初始化加载图片
      */
 
+    private GamePane gamePane;
     public GameFrame(){
         //初始化GameFrame顶层窗口
         setTitle("Gizmo Ball");
@@ -31,12 +32,14 @@ public class GameFrame extends JFrame {
         MyKeyListener myKeyListener = new MyKeyListener();
         gamePane.addMouseListener(myKeyListener);
         add(gamePane);
+        setGamePane(gamePane);
+
 
         JPanel rightPane = new JPanel();
         rightPane.setPreferredSize(new Dimension(220, 500));
         rightPane.setLayout(new BoxLayout(rightPane, 1));
-        ToolPane toolPane = new ToolPane(gamePane);
-        ItemPane itemPane= new ItemPane(gamePane);
+        ToolPane toolPane = new ToolPane();
+        ItemPane itemPane= new ItemPane();
         ModePane modePane = new ModePane();
         rightPane.add(itemPane);
         rightPane.add(toolPane);
@@ -51,9 +54,13 @@ public class GameFrame extends JFrame {
 
     public static void main(String[] args) throws InterruptedException {
         GameFrame gameFrame = new GameFrame();
-        while(true){
-            gameFrame.repaint();
-            Thread.sleep(1000);
-        }
+    }
+
+    public GamePane getGamePane() {
+        return gamePane;
+    }
+
+    public void setGamePane(GamePane gamePane) {
+        this.gamePane = gamePane;
     }
 }

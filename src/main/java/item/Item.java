@@ -24,11 +24,13 @@ public class Item extends JComponent {
 
     //其他公有属性...
 
-
     public Item(Integer x, Integer y, Image image){
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         this.image = image;
+        System.out.println(this.x+" "+this.y);
+        setSize(25, 25);
+        setBounds(this.x, this.y, 25, 25);
         setVisible(true);
     }
 
@@ -37,8 +39,9 @@ public class Item extends JComponent {
         return x;
     }
 
+    //setX和setY，使其落在格子内部
     public void setX(int x) {
-        this.x = x;
+        this.x = x/25*25;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class Item extends JComponent {
     }
 
     public void setY(int y) {
-        this.y = y;
+        this.y = y/25*25;
     }
 
     public double getScale() {

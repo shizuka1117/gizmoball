@@ -61,7 +61,6 @@ public class IconUtil extends Properties {
 
         public ImageIcon getIcon(String iconName){
             ImageIcon icon = new ImageIcon(iconName);
-            System.out.println(iconName);
             icon.setImage(icon.getImage().getScaledInstance(40, 40,
                     Image.SCALE_AREA_AVERAGING));
             return icon;

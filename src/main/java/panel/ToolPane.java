@@ -13,10 +13,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 public class ToolPane extends JPanel {
-    GamePane gamePane;
     ToolActionListener toolActionListener = new ToolActionListener();
-    public ToolPane(GamePane gamePane){
-        this.gamePane=gamePane;
+    public ToolPane(){
         setBackground(Color.white);
         setLayout(new GridLayout(2, 4));
         try {
@@ -56,13 +54,24 @@ public class ToolPane extends JPanel {
     private class ToolActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+            //获取新加入最后一个item
+            JRadioButton button = ((JRadioButton) e.getSource());
+            JPanel jpanel = (JPanel) button.getParent();
+            GameFrame gameFrame = (GameFrame) jpanel.getRootPane().getParent();
+            GamePane gamePane = gameFrame.getGamePane();
+            Item item = (Item)gamePane.getCurItem();
             //TODO: 不同的tool实现不同的操作
-            switch (e.getActionCommand()){
-                case "rotate":
-                    break;
-                case "remove":break;
-                case "zoom-in":break;
-                case "zoom_out":break;
+            if(item!=null){
+                switch (e.getActionCommand()){
+                    //TODO:调用旋转、删除等函数，写在item或者具体类中
+                    case "rotate":
+                        System.out.println("rotate");
+                        break;
+                    case "remove":break;
+                    case "zoom-in":break;
+                    case "zoom_out":break;
+                }
+                gamePane.repaint();
             }
         }
     }

@@ -15,13 +15,17 @@ import java.util.List;
 import item.*;
 
 public class GamePane extends JPanel implements Runnable{
-    String nextItemName;
+    String nextItemName = "";
+    Item curItem;
     public GamePane(){
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
     }
-    public void addItem(Item item){
-        add(item);
+
+    @Override
+    public Component add(Component component){
+        curItem = (Item)component;
+        return super.add(component);
     }
 
     public String getNextItemName() {
@@ -30,6 +34,15 @@ public class GamePane extends JPanel implements Runnable{
 
     public void setNextItemName(String nextItemName) {
         this.nextItemName = nextItemName;
+    }
+
+    public Item getCurItem() {
+        return curItem;
+    }
+
+    public void setCurItem(Item curItem) {
+        System.out.println(curItem);
+        this.curItem = curItem;
     }
 
     @Override

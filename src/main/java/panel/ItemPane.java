@@ -8,15 +8,14 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.*;
 
 public class ItemPane extends JPanel {
-    GamePane gamePane;
     //保存每个item的名称和对应的icon存储位置
     IconUtil kv = new IconUtil();
-    public ItemPane(GamePane gamePane) {
-        this.gamePane = gamePane;
+    public ItemPane() {
         ItemActionListener itemActionListener = new ItemActionListener();
         Border titleBorder = BorderFactory.createTitledBorder("组件栏");
         setBorder(titleBorder);
@@ -55,9 +54,14 @@ public class ItemPane extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //反射创建对象
+            String itemName = e.getActionCommand();
+            //获取gamePane，设置nextItemName（下一个要新建的Item类名）
             try {
-                gamePane.setNextItemName(e.getActionCommand());
+                JRadioButton button = ((JRadioButton) e.getSource());
+                ItemPane jpanel = (ItemPane) button.getParent();
+                GameFrame gameFrame = (GameFrame) jpanel.getRootPane().getParent();
+                GamePane gamePane = gameFrame.getGamePane();
+                gamePane.setNextItemName(itemName);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
