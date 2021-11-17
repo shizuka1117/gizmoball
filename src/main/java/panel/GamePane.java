@@ -18,7 +18,10 @@ public class GamePane extends JPanel implements Runnable{
     String nextItemName;
     public GamePane(){
         setPreferredSize(new Dimension(500, 500));
+
         setVisible(true);
+        //标示边界
+        Common.updateBounds(500,500);
     }
     public void addItem(Item item){
         add(item);
@@ -56,7 +59,7 @@ public class GamePane extends JPanel implements Runnable{
     public void run() {
         try{
             while (true){
-                Thread.sleep(30);
+                Thread.sleep(5);
                 this.repaint();
                 logic();
             }
@@ -66,5 +69,6 @@ public class GamePane extends JPanel implements Runnable{
     }
 
     private void logic() {
+        Common.step();
     }
 }

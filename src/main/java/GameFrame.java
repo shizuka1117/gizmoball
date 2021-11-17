@@ -45,15 +45,16 @@ public class GameFrame extends JFrame {
         setBackground(Color.blue);
         add(rightPane);
         pack();
+        new Thread(gamePane).start();
         setVisible(true);
 
     }
 
     public static void main(String[] args) throws InterruptedException {
         GameFrame gameFrame = new GameFrame();
-        while(true){
-            gameFrame.repaint();
-            Thread.sleep(1000);
-        }
+//        while(true){
+//            gameFrame.repaint();
+//            Thread.sleep(1000);
+//        }
     }
 }
