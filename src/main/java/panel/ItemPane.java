@@ -1,6 +1,4 @@
 package panel;
-
-import listener.MyKeyListener;
 import util.IconUtil;
 
 import javax.swing.*;

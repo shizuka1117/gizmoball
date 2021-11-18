@@ -36,18 +36,25 @@ public class ModePane extends JPanel {
      private class ModeActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
+            button2.setEnabled(true);
+            button1.setEnabled(false);
             GameFrame gameFrame = (GameFrame) getRootPane().getParent();
             GamePane gamePane = gameFrame.getGamePane();
             if(e.getSource()==button1) {
                 gamePane.stop();
+                gamePane.addMouseListener(gamePane.getMyKeyListener());
             }
             else if(e.getSource()==button2){
+                button1.setEnabled(true);
+                button2.setEnabled(false);
                 for(int i = 0; i<gamePane.getComponentCount(); i++){
                     Item item = (Item)gamePane.getComponent(i);
                     item.initInWorld();
                 }
                 gamePane.begin();
+                gamePane.removeMouseListener(gamePane.getMyKeyListener());
                 new Thread(gamePane).start();
+
             }
         }
     }

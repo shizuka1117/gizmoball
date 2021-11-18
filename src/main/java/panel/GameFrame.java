@@ -1,6 +1,4 @@
 package panel;
-
-import listener.MyKeyListener;
 import panel.*;
 
 import javax.swing.*;
@@ -31,8 +29,7 @@ public class GameFrame extends JFrame {
         setJMenuBar(menuPane);
 
         GamePane gamePane = new GamePane();
-        MyKeyListener myKeyListener = new MyKeyListener();
-        gamePane.addMouseListener(myKeyListener);
+
         add(gamePane);
         setGamePane(gamePane);
 

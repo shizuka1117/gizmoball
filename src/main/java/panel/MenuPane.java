@@ -28,10 +28,13 @@ public class MenuPane extends JMenuBar {
     private class MenuClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String menuItemName = e.getActionCommand();
+            GameFrame gameFrame = (GameFrame) getRootPane().getParent();
             //TODO:处理不同的menu事件
             switch (menuItemName){
                 case "new":
-                    System.out.println("new"); break;
+                    System.out.println("new");
+                    gameFrame.setGamePane(new GamePane());
+                    break;
                 case "save":break;
                 case "load":break;
             }
