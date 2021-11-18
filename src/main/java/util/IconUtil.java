@@ -59,8 +59,8 @@ public class IconUtil extends Properties {
             return Collections.enumeration(keys);
         }
 
-        public ImageIcon getIcon(String iconName){
-            ImageIcon icon = new ImageIcon(iconName);
+        public ImageIcon getImageIcon(String iconName){
+            ImageIcon icon = new ImageIcon(getProperty(iconName));
             icon.setImage(icon.getImage().getScaledInstance(40, 40,
                     Image.SCALE_AREA_AVERAGING));
             return icon;

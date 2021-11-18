@@ -10,12 +10,12 @@ import java.awt.event.MouseMotionListener;
 import java.io.Serializable;
 
 //TODO:编写继承Item的子类
-
+//TODO:运动过程中component的位置也要修改
 /**
  * 继承Jcomponent用于画图，并且JComponent已经实现了Serializable可以用于序列化保存
  */
 //TODO:修改setX和setY，使其落在格子内部
-public class Item extends JComponent {
+public abstract class Item extends JComponent {
     int x = 50;//左上角x坐标
     int y = 50;//左上角y坐标
     int scale;//放大倍数（必须>=1）
@@ -91,11 +91,11 @@ public class Item extends JComponent {
     }
 
     //提供统一接口，在子类里进行重写的方法
-    public void enlarge(){ } //放大
+    public abstract void enlarge(); //放大
 
-    public void reduce(){ }  //缩小
+    public abstract void reduce();  //缩小
 
-    public void rotation(){ } //旋转
+    public abstract void rotation(); //旋转
 
     public void initInWorld(){ }  //在world中创建该item对应的刚体
 

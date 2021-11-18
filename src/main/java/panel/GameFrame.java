@@ -1,3 +1,5 @@
+package panel;
+
 import listener.MyKeyListener;
 import panel.*;
 
@@ -49,7 +51,7 @@ public class GameFrame extends JFrame {
         add(rightPane);
         pack();
         setVisible(true);
-
+//        new Thread(gamePane).start();
     }
 
     public static void main(String[] args) throws InterruptedException {

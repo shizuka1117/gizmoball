@@ -31,7 +31,7 @@ public class ItemPane extends JPanel {
                 //取出每个Key
                 String iconName = keys.nextElement().toString();
                 //根据key获取value
-                ImageIcon icon = kv.getIcon(kv.getProperty(iconName));
+                ImageIcon icon = kv.getImageIcon(iconName);
                 JLabel label = new JLabel();
                 label.setIcon(icon);
                 JRadioButton button = new JRadioButton();
@@ -57,9 +57,7 @@ public class ItemPane extends JPanel {
             String itemName = e.getActionCommand();
             //获取gamePane，设置nextItemName（下一个要新建的Item类名）
             try {
-                JRadioButton button = ((JRadioButton) e.getSource());
-                ItemPane jpanel = (ItemPane) button.getParent();
-                GameFrame gameFrame = (GameFrame) jpanel.getRootPane().getParent();
+                GameFrame gameFrame = (GameFrame) getRootPane().getParent();
                 GamePane gamePane = gameFrame.getGamePane();
                 gamePane.setNextItemName(itemName);
             } catch (Exception exception) {

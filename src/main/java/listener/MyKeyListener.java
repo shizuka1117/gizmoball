@@ -27,15 +27,17 @@ public class MyKeyListener implements MouseListener {
             int y = e.getY();
             if(!itemType.equals("")&&!itemType.equals("Click")){
                 try {
-                    Class<Item> onClass = null;
-                    kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
+                    if(panel.getComponentAt(x, y)==panel){
+                        Class<Item> onClass = null;
+                        kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
+                        System.out.println("点击位置："+x+" "+y);
+                        onClass = (Class<Item>) Class.forName("item."+ itemType);
+                        Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, Image.class);
 
-                    onClass = (Class<Item>) Class.forName("item."+ itemType);
-                    Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, Image.class);
-
-                    Item item = constructor.newInstance(x, y, (kv.getIcon(kv.getProperty(itemType))).getImage());
-                    panel.add(item);
-                    panel.repaint();
+                        Item item = constructor.newInstance(x, y, (kv.getImageIcon(itemType)).getImage());
+                        panel.add(item);
+                        panel.repaint();
+                    }
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
@@ -43,9 +45,10 @@ public class MyKeyListener implements MouseListener {
             else if(itemType.equals("Click")){
                 System.out.println("Click");
                 //如果button值为click就判断当前点击的位置上是否有component
-                Item item = (Item)panel.getComponentAt(x, y);
-                if(item!=null)
-                    panel.setCurItem(item);
+                Component component = panel.getComponentAt(x, y);
+                if(component!=panel){
+                    panel.setCurItem((Item)component);
+                }
             }
         }
     }

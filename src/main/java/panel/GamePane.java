@@ -15,7 +15,8 @@ import java.util.List;
 import item.*;
 
 public class GamePane extends JPanel implements Runnable{
-    String nextItemName = "";
+    public volatile boolean stop = false;//标志位，控制线程执行
+    String nextItemName;
     Item curItem;
     public GamePane(){
         setPreferredSize(new Dimension(500, 500));
@@ -71,7 +72,7 @@ public class GamePane extends JPanel implements Runnable{
     @Override
     public void run() {
         try{
-            while (true){
+            while (!stop){
                 Thread.sleep(5);
                 this.repaint();
                 logic();
@@ -80,7 +81,13 @@ public class GamePane extends JPanel implements Runnable{
             e.printStackTrace();
         }
     }
+    public void stop(){
+        stop = true;
+    }
 
+    public void begin(){
+        stop = false;
+    }
     private void logic() {
         Common.step();
     }

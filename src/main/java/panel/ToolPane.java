@@ -54,27 +54,23 @@ public class ToolPane extends JPanel {
     private class ToolActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            //获取新加入最后一个item
-            JRadioButton button = ((JRadioButton) e.getSource());
-            JPanel jpanel = (JPanel) button.getParent();
-            GameFrame gameFrame = (GameFrame) jpanel.getRootPane().getParent();
+            //获取新加入最后一个item;
+            GameFrame gameFrame = (GameFrame)getRootPane().getParent();
             GamePane gamePane = gameFrame.getGamePane();
-            Item item = (Item)gamePane.getCurItem();
-            //TODO: 不同的tool实现不同的操作
+            Item item = gamePane.getCurItem();
             System.out.println(e.getActionCommand());
             if(item!=null){
                 switch (e.getActionCommand()){
-                    //TODO:调用旋转、删除等函数，写在item或者具体类中
                     case "rotate":
                         item.rotation();
                         break;
                     case "remove":
-                        //todo:直接删除？
+                        gamePane.remove(item);
                         break;
-                    case "zoomIn":
+                    case "zoom-in":
                         item.enlarge();
                         break;
-                    case "zoomOut":
+                    case "zoom-out":
                         item.reduce();
                         break;
                 }
