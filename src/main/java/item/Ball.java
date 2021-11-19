@@ -54,7 +54,7 @@ public class Ball extends Item {
             X = (int)ballInWorld.getPosition().x;
         }
         else {
-            X = x;
+            X = x; //x y 记录初始位置， X Y 记录实时位置
         }
         return X;
     }
@@ -105,5 +105,11 @@ public class Ball extends Item {
         theta = (theta+90)%360;
         System.out.println(theta);
         at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
+    }
+
+    @Override
+    public void destroyInWorld(){
+        Common.world.destroyBody(ballInWorld);
+        ballInWorld = null;
     }
 }

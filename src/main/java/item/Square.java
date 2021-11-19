@@ -77,4 +77,9 @@ public class Square extends Item{
         at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 
+    @Override
+    public void destroyInWorld(){
+        Common.world.destroyBody(squareInWorld);
+    }
+
 }

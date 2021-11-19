@@ -42,6 +42,10 @@ public class ModePane extends JPanel {
             GamePane gamePane = gameFrame.getGamePane();
             if(e.getSource()==button1) {
                 gamePane.stop();
+                for(int i = 0; i<gamePane.getComponentCount(); i++) {
+                    Item item = (Item) gamePane.getComponent(i);
+                    item.destroyInWorld();
+                }
                 gamePane.addMouseListener(gamePane.newMyKeyListener());
             }
             else if(e.getSource()==button2){

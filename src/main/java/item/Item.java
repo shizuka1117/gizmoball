@@ -108,4 +108,6 @@ public abstract class Item extends JComponent {
 
     public void initInWorld(){ }  //在world中创建该item对应的刚体
 
+    public void destroyInWorld(){ } //在world里删除对应的刚体
+
 }
