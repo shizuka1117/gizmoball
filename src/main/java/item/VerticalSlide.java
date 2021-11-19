@@ -20,7 +20,7 @@ public class VerticalSlide extends Item{
     AffineTransform at = new AffineTransform();
 
     //constructor
-    public VerticalSlide(Integer x, Integer y, Image image){
+    public VerticalSlide(Integer x, Integer y, String image){
         super(x,y,image);
        // initVerticalSlide();
         this.width = Constant.BASE_WIDTH;

@@ -3,6 +3,7 @@ package panel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.EventListener;
 
 public class MenuPane extends JMenuBar {
@@ -29,14 +30,54 @@ public class MenuPane extends JMenuBar {
         public void actionPerformed(ActionEvent e) {
             String menuItemName = e.getActionCommand();
             GameFrame gameFrame = (GameFrame) getRootPane().getParent();
-            //TODO:处理不同的menu事件
+            GamePane gamePane = gameFrame.getGamePane();
+            //处理不同的menu事件
             switch (menuItemName){
                 case "new":
                     System.out.println("new");
-                    gameFrame.setGamePane(new GamePane());
+                    for (Component c:gamePane.getComponents()) {
+                        gamePane.remove(c);
+                    }
+                    gamePane.setCurItem(null);
+                    //需要手动立即更新UI，否则删除的组件仍会显示
+                    gamePane.updateUI();
                     break;
-                case "save":break;
-                case "load":break;
+                case "save":
+                    saveGame();
+                    break;
+                case "load":
+                    //完成读取功能
+                    loadGame();
+                    break;
+            }
+        }
+        public void saveGame(){
+            //保存时自动应用设计模式，停止动画
+            JFileChooser chooser = new JFileChooser();
+            int option = chooser.showSaveDialog(null);
+            if(option==JFileChooser.APPROVE_OPTION){	//假如用户选择了保存
+                File file = chooser.getSelectedFile();
+                String fname = chooser.getName(file);	//从文件名输入框中获取文件名
+                if(fname.indexOf(".gizmo")==-1){
+                    file = new File(chooser.getCurrentDirectory(),fname+".gizmo");
+                    System.out.println("renamed");
+                    System.out.println(file.getName());
+                }
+                GameFrame gameFrame = (GameFrame) getRootPane().getParent();
+                gameFrame.saveGamePane(file);
+                System.out.println("保存成功");
+            }
+        }
+
+        public void loadGame(){
+            JFileChooser chooser = new JFileChooser(); // 设置选择器
+            chooser.setMultiSelectionEnabled(false); // 设为多选
+            GameFrame gameFrame = (GameFrame) getRootPane().getParent();
+            int returnVal = chooser.showOpenDialog(gameFrame); // 是否打开文件选择框
+            System.out.println("returnVal=" + returnVal);
+            if (returnVal == JFileChooser.APPROVE_OPTION) { // 如果符合文件类型
+                File file = chooser.getSelectedFile();
+                gameFrame.loadGamePane(file);
             }
         }
     }

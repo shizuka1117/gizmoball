@@ -42,7 +42,7 @@ public class ModePane extends JPanel {
             GamePane gamePane = gameFrame.getGamePane();
             if(e.getSource()==button1) {
                 gamePane.stop();
-                gamePane.addMouseListener(gamePane.getMyKeyListener());
+                gamePane.addMouseListener(gamePane.newMyKeyListener());
             }
             else if(e.getSource()==button2){
                 button1.setEnabled(true);
@@ -54,7 +54,6 @@ public class ModePane extends JPanel {
                 gamePane.begin();
                 gamePane.removeMouseListener(gamePane.getMyKeyListener());
                 new Thread(gamePane).start();
-
             }
         }
     }

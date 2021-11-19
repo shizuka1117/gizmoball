@@ -22,7 +22,7 @@ public class Triangle extends Item {
 
 
     //Constructor
-    public Triangle(Integer x, Integer y, Image image){
+    public Triangle(Integer x, Integer y, String image){
         super(x,y,image);
         this.width = Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;

@@ -20,7 +20,7 @@ public class Square extends Item{
     AffineTransform at = new AffineTransform();
 
     //Constructor
-    public Square(Integer x, Integer y, Image image){
+    public Square(Integer x, Integer y, String image){
         super(x,y,image);
         this.width = Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;

@@ -19,7 +19,7 @@ public class BlackHole extends Item {
     AffineTransform at = new AffineTransform();
 
     //Constructor
-    public BlackHole (Integer x, Integer y, Image image){
+    public BlackHole (Integer x, Integer y, String image){
         super(x, y, image);
         this.radius = (float) Constant.BASE_RADIUS;
         this.width = Constant.BASE_WIDTH;

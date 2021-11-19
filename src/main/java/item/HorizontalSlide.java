@@ -21,7 +21,7 @@ public class HorizontalSlide extends Item{
     AffineTransform at = new AffineTransform();
 
     //constructor
-    public HorizontalSlide(Integer x, Integer y, Image image){
+    public HorizontalSlide(Integer x, Integer y, String image){
         super(x,y,image);
         //initHorizontalSlide();
         this.width = Constant.BASE_WIDTH;

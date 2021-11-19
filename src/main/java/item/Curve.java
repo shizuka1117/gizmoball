@@ -23,7 +23,7 @@ public class Curve extends Item {
     private int height;
     AffineTransform at = new AffineTransform();
 
-    public Curve(Integer x, Integer y, Image image){
+    public Curve(Integer x, Integer y, String image){
         super(x,y,image);
         this.width = Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;

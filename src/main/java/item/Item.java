@@ -4,31 +4,32 @@ import util.IconUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.io.Serializable;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 //TODO:编写继承Item的子类
-//TODO:运动过程中component的位置也要修改
+//TODO:运动过程中component的位置和大小也要修改
 /**
  * 继承Jcomponent用于画图，并且JComponent已经实现了Serializable可以用于序列化保存
  */
 //TODO:修改setX和setY，使其落在格子内部
 public abstract class Item extends JComponent {
+
     int x = 50;//左上角x坐标
     int y = 50;//左上角y坐标
     int scale;//放大倍数（必须>=1）
     double theta;//旋转角度
-    Image image;
-
+    transient Image image;
+    String imageUrl;
     //其他公有属性...
 
+    //静态代码块初始化配置文件
 
-    public Item(Integer x, Integer y, Image image){
+
+    public Item(Integer x, Integer y, String imageUrl){
         setX(x);
         setY(y);
-        this.image = image;
+        this.imageUrl = imageUrl;
         System.out.println(this.x+" "+this.y);
         setSize(25, 25);
         setBounds(this.x, this.y, 25, 25);
@@ -78,6 +79,14 @@ public abstract class Item extends JComponent {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /**

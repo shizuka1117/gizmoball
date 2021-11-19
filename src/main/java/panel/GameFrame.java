@@ -1,17 +1,28 @@
 package panel;
+import item.Item;
 import panel.*;
+import util.IconUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.*;
 
 public class GameFrame extends JFrame {
+    IconUtil kv = new IconUtil();
+    {
+        try {
+            kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
     /**
      * 静态代码块，初始化加载图片
      */
-
+    private String nextItemName;
     private GamePane gamePane;
     public GameFrame(){
         //初始化GameFrame顶层窗口
@@ -28,10 +39,7 @@ public class GameFrame extends JFrame {
         MenuPane menuPane = new MenuPane();
         setJMenuBar(menuPane);
 
-        GamePane gamePane = new GamePane();
-
-        add(gamePane);
-        setGamePane(gamePane);
+        setGamePane(new GamePane());
 
 
         JPanel rightPane = new JPanel();
@@ -54,12 +62,59 @@ public class GameFrame extends JFrame {
     public static void main(String[] args) throws InterruptedException {
         GameFrame gameFrame = new GameFrame();
     }
+    public String getNextItemName() {
+        return nextItemName;
+    }
+
+    public void setNextItemName(String nextItemName) {
+        this.nextItemName = nextItemName;
+    }
+
 
     public GamePane getGamePane() {
         return gamePane;
     }
 
     public void setGamePane(GamePane gamePane) {
+        if(this.gamePane!=null){
+            for (Component c:this.gamePane.getComponents()) {
+                gamePane.remove(c);
+            }
+            remove(this.gamePane);
+        }
         this.gamePane = gamePane;
+       add(gamePane, 0);
+    }
+
+    public void saveGamePane(File file) {
+        try {
+            //写文件操作……
+            ObjectOutputStream objectOutputStream=new ObjectOutputStream(new FileOutputStream(file));
+            objectOutputStream.writeObject(gamePane);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+
+        } catch (IOException exception) {
+            System.err.println("IO异常");
+            exception.printStackTrace();
+        }
+    }
+
+    public void loadGamePane(File file) {
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+            setGamePane((GamePane)objectInputStream.readObject());
+            //重新加载item的Image
+            for(int i = 0; i<gamePane.getComponentCount(); i++){
+                Item item = ((Item)gamePane.getComponent(i));
+                String imageUrl = item.getImageUrl();
+                item.setImage(kv.getImageIcon(imageUrl).getImage());
+            }
+            gamePane.repaint();
+            System.out.println("组件数量："+gamePane.getComponentCount());
+            objectInputStream.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }

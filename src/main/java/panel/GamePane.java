@@ -2,28 +2,30 @@ package panel;
 
 import item.Item;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import item.*;
 import util.IconUtil;
 
-public class GamePane extends JPanel implements Runnable{
-    public volatile boolean stop = false;//标志位，控制线程执行
-
+public class GamePane extends JPanel implements Runnable {
+    IconUtil kv = new IconUtil();
+    {
+        try {
+            kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+    public volatile Boolean stop = false;//标志位，控制线程执行
     private MyKeyListener myKeyListener = new MyKeyListener();
-    String nextItemName;
-    Item curItem;
+    private transient Item curItem;
     public GamePane(){
         addMouseListener(myKeyListener);
         setPreferredSize(new Dimension(500, 500));
@@ -32,18 +34,9 @@ public class GamePane extends JPanel implements Runnable{
         Common.updateBounds(500,500);
     }
 
-    @Override
-    public Component add(Component component){
-        curItem = (Item)component;
-        return super.add(component);
-    }
-
-    public String getNextItemName() {
-        return nextItemName;
-    }
-
-    public void setNextItemName(String nextItemName) {
-        this.nextItemName = nextItemName;
+    public Component add(Item item){
+        curItem = item;
+        return super.add(item);
     }
 
     public Item getCurItem() {
@@ -55,12 +48,17 @@ public class GamePane extends JPanel implements Runnable{
         this.curItem = curItem;
     }
 
+    public MyKeyListener newMyKeyListener() {
+        return new MyKeyListener();
+    }
+
     public MyKeyListener getMyKeyListener() {
         return myKeyListener;
     }
 
     @Override
     public void paint(Graphics g) {
+
         //强制类型转换得到Graphics子类Graphics2D对象
         Graphics2D g2 = (Graphics2D)g;//又得到一支笔
         //绘制格子
@@ -76,6 +74,7 @@ public class GamePane extends JPanel implements Runnable{
         }
         for(Component i: getComponents()){
             i.paint(g);
+            System.out.println(this.hashCode());
         }
     }
 
@@ -102,27 +101,25 @@ public class GamePane extends JPanel implements Runnable{
         Common.step();
     }
 
-    private class MyKeyListener implements MouseListener {
-        IconUtil kv = new IconUtil();
+    public class MyKeyListener implements MouseListener, Serializable {
+
         @Override
         public void mouseClicked(MouseEvent e) {
             //可以获取
             if(MouseEvent.BUTTON1 == e.getButton()){
                 GamePane panel = (GamePane) e.getSource();
                 //当类型不为箭头时，根据item类型创建并加入
-                String itemType = panel.getNextItemName();
+                String itemType = ((GameFrame)panel.getRootPane().getParent()).getNextItemName();
                 int x = e.getX();
                 int y = e.getY();
-                if(!itemType.equals("")&&!itemType.equals("Click")){
+                if(!(itemType==null)&&!itemType.equals("Click")){
                     try {
                         if(panel.getComponentAt(x, y)==panel){
                             Class<Item> onClass = null;
-                            kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
-                            System.out.println("点击位置："+x+" "+y);
                             onClass = (Class<Item>) Class.forName("item."+ itemType);
-                            Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, Image.class);
-
-                            Item item = constructor.newInstance(x, y, (kv.getImageIcon(itemType)).getImage());
+                            Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, String.class);
+                            Item item = constructor.newInstance(x, y, itemType);
+                            item.setImage(kv.getImageIcon(itemType).getImage());
                             panel.add(item);
                             panel.repaint();
                         }
@@ -131,7 +128,7 @@ public class GamePane extends JPanel implements Runnable{
                     }
                 }
                 else if(itemType.equals("Click")){
-                    System.out.println("Click");
+                    System.out.println("未添加");
                     //如果button值为click就判断当前点击的位置上是否有component
                     Component component = panel.getComponentAt(x, y);
                     if(component!=panel){

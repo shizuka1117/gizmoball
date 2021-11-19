@@ -19,7 +19,7 @@ public class Rail extends Item{
     private int height;
     AffineTransform at = new AffineTransform();
 
-    public Rail(Integer x, Integer y, Image image){
+    public Rail(Integer x, Integer y, String image){
         super(x,y,image);
         //initRailInWorld();
         this.width = Constant.BASE_WIDTH;

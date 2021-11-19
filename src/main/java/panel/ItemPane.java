@@ -56,8 +56,7 @@ public class ItemPane extends JPanel {
             //获取gamePane，设置nextItemName（下一个要新建的Item类名）
             try {
                 GameFrame gameFrame = (GameFrame) getRootPane().getParent();
-                GamePane gamePane = gameFrame.getGamePane();
-                gamePane.setNextItemName(itemName);
+                gameFrame.setNextItemName(itemName);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

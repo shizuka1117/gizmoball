@@ -18,12 +18,12 @@ public class Ball extends Item {
     float radius;
     int width;
     int height;
-    public Body ballInWorld;
+    public transient Body ballInWorld;
     AffineTransform at = new AffineTransform();
     // 是否被吸收,是则不再显示
     private boolean isAbsorbed = false;
 
-    public Ball(Integer x, Integer y, Image image) {
+    public Ball(Integer x, Integer y, String image) {
         super(x, y, image);
         this.radius = (float) Constant.BASE_RADIUS;
         this.width = Constant.BASE_WIDTH;
