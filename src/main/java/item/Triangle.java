@@ -61,7 +61,6 @@ public class Triangle extends Item {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x + h/2,y + h/2);
         g2d.drawImage(image, x, y, width,height,null);
-        g2d.drawImage(image, x, y, width,height,null);
     }
 
     @Override

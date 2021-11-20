@@ -17,7 +17,7 @@ public class HorizontalSlide extends Item{
     private int width;
     private int height;
     float hw ; //半宽
-    float hh ; //半高 假设挡板高为5
+    float hh ; //半高
     Body horizontalSlide;
 
     //constructor
