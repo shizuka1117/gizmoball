@@ -17,7 +17,6 @@ public class Square extends Item{
     float hw ;
     float hh ; //半宽 & 高
     Body squareInWorld;
-    AffineTransform at = new AffineTransform();
 
     //Constructor
     public Square(Integer x, Integer y, String image){
@@ -52,7 +51,7 @@ public class Square extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setTransform(at);
+        g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
         g2d.drawImage(image,x,y,width,height,null);
     }
 
@@ -79,8 +78,6 @@ public class Square extends Item{
     @Override
     public void rotation() {
         theta = (theta+90)%360;
-        System.out.println(theta);
-        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 
     @Override
