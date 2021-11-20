@@ -19,7 +19,7 @@ public class Ball extends Item {
     int width;
     int height;
     public transient Body ballInWorld;
-    AffineTransform at = new AffineTransform();
+
     // 是否被吸收,是则不再显示
     private boolean isAbsorbed = false;
 
@@ -34,7 +34,7 @@ public class Ball extends Item {
     public void initInWorld(){
         //定义刚体
         BodyDef bd = new BodyDef();
-        bd.position = new Vec2(x,y);
+        bd.position = new Vec2(x+radius,y+radius);
         bd.type = BodyType.DYNAMIC;
         //定义描述
         FixtureDef fd = new FixtureDef();
@@ -50,10 +50,10 @@ public class Ball extends Item {
     public int getX(){
         int X;
         if(ballInWorld != null){
-            X = (int)ballInWorld.getPosition().x;
+            X = (int)(ballInWorld.getPosition().x - radius);
         }
         else {
-            X = x;
+            X = x; //x y 记录初始位置， X Y 记录实时位置
         }
         return X;
     }
@@ -61,7 +61,7 @@ public class Ball extends Item {
     public int getY(){
         int Y;
         if(ballInWorld != null){
-            Y = (int)ballInWorld.getPosition().y;
+            Y = (int)(ballInWorld.getPosition().y - radius);
         }
         else {
             Y = y;
@@ -74,8 +74,11 @@ public class Ball extends Item {
         super.paint(g);
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
+            g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
             g2d.drawImage(image,getX(), getY(),width,height,null);
+            g2d.dispose();
         }
+
     }
 
     @Override
@@ -101,8 +104,11 @@ public class Ball extends Item {
     @Override
     public void rotation() {
         // do nothing
-        theta = (theta+90)%360;
-        System.out.println(theta);
-        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
+    }
+
+    @Override
+    public void destroyInWorld(){
+        Common.world.destroyBody(ballInWorld);
+        ballInWorld = null;
     }
 }

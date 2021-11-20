@@ -17,19 +17,20 @@ public class Square extends Item{
     float hw ;
     float hh ; //半宽 & 高
     Body squareInWorld;
-    AffineTransform at = new AffineTransform();
 
     //Constructor
     public Square(Integer x, Integer y, String image){
         super(x,y,image);
         this.width = Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;
+        this.hw = width/2;
+        this.hh = height/2;
     }
 
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-        bd.position = new Vec2(x,y);
+        bd.position = new Vec2(x+hw,y+hh);
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
         FixtureDef fd = new FixtureDef();
@@ -50,7 +51,7 @@ public class Square extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setTransform(at);
+        g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
         g2d.drawImage(image,x,y,width,height,null);
     }
 
@@ -59,6 +60,8 @@ public class Square extends Item{
         scale += 1;
         width = Constant.BASE_WIDTH * scale;
         height = Constant.BASE_HEIGHT * scale;
+        hw = (float) width/2;
+        hh = (float) height/2;
     }
 
     @Override
@@ -67,14 +70,19 @@ public class Square extends Item{
             scale -= 1;
             width = Constant.BASE_WIDTH * scale;
             height = Constant.BASE_HEIGHT * scale;
+            hw = (float) width/2;
+            hh = (float) height/2;
         }
     }
 
     @Override
     public void rotation() {
         theta = (theta+90)%360;
-        System.out.println(theta);
-        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
+    }
+
+    @Override
+    public void destroyInWorld(){
+        Common.world.destroyBody(squareInWorld);
     }
 
 }
