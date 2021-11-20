@@ -15,15 +15,10 @@ import java.awt.geom.AffineTransform;
 public class Triangle extends Item {
     float worldX, worldY; //坐标/2
     int count = 3; //vertex number
-    Vec2[] m_vertices = new Vec2[count+1]; //顶点数组
-    Vec2 m_prevVertex = new Vec2(); //表示第一个顶点的前导顶点
-    Vec2 m_nextVertex = new Vec2(); //后继
-
     int h = Constant.BASE_HEIGHT ; //三角形边长
     Body triangleInWorld;
     private int width;
     private int height;
-    AffineTransform at = new AffineTransform();
 
 
     //Constructor
@@ -50,23 +45,21 @@ public class Triangle extends Item {
         //由左上角的坐标得到顶点数组
         ps.set(new Vec2[] {new Vec2(worldX,worldY),
                 new Vec2(worldX+h,worldY+h),
-                new Vec2(worldX,worldY+h) }, 3); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+                new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
         fd.shape = ps;
         fd.density = 0f;
         triangleInWorld = Common.world.createBody(bd);
         triangleInWorld.createFixture(fd);
-        /**
-         * 问题：创建的刚体所在位置不对！
-         */
+
     }
 
     @Override
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
+        g2d.rotate(Math.toRadians(theta),x + h/2,y + h/2);
        // g2d.setTransform(at);
         g2d.drawImage(image, x, y, width,height,null);
-        g2d.setTransform(at);
     }
 
     @Override
@@ -90,9 +83,8 @@ public class Triangle extends Item {
     @Override
     public void rotation() {
         theta = (theta+90)%360;
-        System.out.println(theta);
-        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
+
     @Override
     public void destroyInWorld(){
         Common.world.destroyBody(triangleInWorld);
