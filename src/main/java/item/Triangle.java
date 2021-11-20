@@ -36,16 +36,32 @@ public class Triangle extends Item {
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-        bd.position = new Vec2(x/ 2, y / 2 );
         bd.type = BodyType.STATIC; //固定不动的
+        bd.position = new Vec2(worldX, worldY);
+
         //刚体内部属性
         FixtureDef fd = new FixtureDef();
         PolygonShape ps = new PolygonShape();
 
         //由左上角的坐标得到顶点数组
-        ps.set(new Vec2[] {new Vec2(worldX,worldY),
-                new Vec2(worldX+h,worldY+h),
-                new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+        if(theta == 0){
+            ps.set(new Vec2[] {new Vec2(worldX,worldY),
+                    new Vec2(worldX+h,worldY+h),
+                    new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+        }else if(theta == 90){
+            ps.set(new Vec2[] {new Vec2(worldX,worldY),
+                    new Vec2(worldX+h,worldY),
+                    new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+        }else if(theta == 180){
+            ps.set(new Vec2[] {new Vec2(worldX,worldY),
+                    new Vec2(worldX+h,worldY),
+                    new Vec2(worldX+h,worldY+h) }, count);
+        }else{
+            ps.set(new Vec2[] {new Vec2(worldX+h,worldY),
+                    new Vec2(worldX+h,worldY+h),
+                    new Vec2(worldX,worldY+h) }, count);
+        }
+
         fd.shape = ps;
         fd.density = 0f;
         triangleInWorld = Common.world.createBody(bd);
