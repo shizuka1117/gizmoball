@@ -31,7 +31,7 @@ public class BlackHole extends Item {
         super.initInWorld();
         //定义刚体
         BodyDef hole = new BodyDef();
-        hole.position = new Vec2(x,y);
+        hole.position = new Vec2(x+radius,y+radius);
         hole.type = BodyType.STATIC;
         //定义描述
         FixtureDef fd = new FixtureDef();

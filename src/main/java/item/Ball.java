@@ -35,7 +35,7 @@ public class Ball extends Item {
         super.initInWorld();
         //定义刚体
         BodyDef bd = new BodyDef();
-        bd.position = new Vec2(x,y);
+        bd.position = new Vec2(x+radius,y+radius);
         bd.type = BodyType.DYNAMIC;
         //定义描述
         FixtureDef fd = new FixtureDef();
@@ -51,7 +51,7 @@ public class Ball extends Item {
     public int getX(){
         int X;
         if(ballInWorld != null){
-            X = (int)ballInWorld.getPosition().x;
+            X = (int)(ballInWorld.getPosition().x - radius);
         }
         else {
             X = x; //x y 记录初始位置， X Y 记录实时位置
@@ -62,7 +62,7 @@ public class Ball extends Item {
     public int getY(){
         int Y;
         if(ballInWorld != null){
-            Y = (int)ballInWorld.getPosition().y;
+            Y = (int)(ballInWorld.getPosition().y - radius);
         }
         else {
             Y = y;
@@ -76,6 +76,7 @@ public class Ball extends Item {
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
             System.out.println(getX()+" "+getY());
+            g2d.setTransform(at);
             g2d.drawImage(image,getX(), getY(),width,height,null);
         }
 

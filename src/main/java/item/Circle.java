@@ -29,13 +29,14 @@ public class Circle extends Item{
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-        bd.position = new Vec2(x,y);
+        bd.position = new Vec2(x+radius,y+radius);
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
         FixtureDef fd = new FixtureDef(); //默认
         //圆形
         CircleShape cs = new CircleShape();
         cs.m_radius = radius;
+        System.out.println("radius="+radius);
         fd.shape = cs;
         circleInWorld = Common.world.createBody(bd);
         circleInWorld.createFixture(fd);
@@ -55,6 +56,7 @@ public class Circle extends Item{
         radius = (float)Constant.BASE_RADIUS*scale;
         width = Constant.BASE_WIDTH * scale;
         height = Constant.BASE_HEIGHT * scale;
+        System.out.println("radius++"+radius);
     }
 
     @Override

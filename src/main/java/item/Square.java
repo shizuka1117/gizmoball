@@ -24,12 +24,14 @@ public class Square extends Item{
         super(x,y,image);
         this.width = Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;
+        this.hw = width/2;
+        this.hh = height/2;
     }
 
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-        bd.position = new Vec2(x,y);
+        bd.position = new Vec2(x+hw,y+hh);
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
         FixtureDef fd = new FixtureDef();
@@ -59,6 +61,8 @@ public class Square extends Item{
         scale += 1;
         width = Constant.BASE_WIDTH * scale;
         height = Constant.BASE_HEIGHT * scale;
+        hw = (float) width/2;
+        hh = (float) height/2;
     }
 
     @Override
@@ -67,6 +71,8 @@ public class Square extends Item{
             scale -= 1;
             width = Constant.BASE_WIDTH * scale;
             height = Constant.BASE_HEIGHT * scale;
+            hw = (float) width/2;
+            hh = (float) height/2;
         }
     }
 
