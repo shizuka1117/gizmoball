@@ -34,16 +34,39 @@ public class Curve extends Item {
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-        bd.position = new Vec2(worldX,worldY + h/4);
+
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
         FixtureDef fd = new FixtureDef();
         PolygonShape ps = new PolygonShape();
 
-        //由左上角的坐标得到顶点数组
-        ps.set(new Vec2[] {new Vec2(worldX,worldY+h/4),
-                new Vec2(worldX+h/2,worldY+h),
-                new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+        bd.position = new Vec2(worldX,worldY);
+        if(theta == 0){
+            //bd.position = new Vec2(worldX,worldY+h/4);
+            ps.set(new Vec2[] {new Vec2(worldX,worldY+h/4),
+                    new Vec2(worldX+h/2,worldY+h),
+                    new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+        }else if(theta == 90){
+           // bd.position = new Vec2(worldX,worldY);
+            //由左上角的坐标得到顶点数组
+            ps.set(new Vec2[] {new Vec2(worldX,worldY),
+                    new Vec2(worldX+3*h/4,worldY),
+                    new Vec2(worldX,worldY+h/2) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+        }else if(theta == 180){
+            //bd.position = new Vec2(worldX+h/2,worldY);
+            //由左上角的坐标得到顶点数组
+            ps.set(new Vec2[] {new Vec2(worldX+h/2,worldY),
+                    new Vec2(worldX+h,worldY),
+                    new Vec2(worldX+h,worldY+3*h/4) }, count);
+        }else if(theta == 270){
+            //bd.position = new Vec2(worldX+h,worldY+h/2);
+            //由左上角的坐标得到顶点数组
+            ps.set(new Vec2[] {new Vec2(worldX+h,worldY+h/4),
+                    new Vec2(worldX+h,worldY+h),
+                    new Vec2(worldX+h/2,worldY+h) }, count);
+        }
+
+
         fd.shape = ps;
         fd.density = 0f;
         curveInWorld = Common.world.createBody(bd);
