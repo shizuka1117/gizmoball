@@ -23,7 +23,6 @@ public class HorizontalSlide extends Item{
     //constructor
     public HorizontalSlide(Integer x, Integer y, String image){
         super(x,y,image);
-        //initHorizontalSlide();
         this.width = 3*Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;
 
@@ -31,7 +30,6 @@ public class HorizontalSlide extends Item{
 
     @Override
     public void initInWorld() {
-        //super.initInWorld();
         BodyDef bd = new BodyDef();  // 定义刚体
         hw = (float) width/2;
         hh = (float) height/2;
@@ -85,5 +83,13 @@ public class HorizontalSlide extends Item{
     @Override
     public void destroyInWorld(){
         Common.world.destroyBody(horizontalSlide);
+    }
+
+    public void move(int length){
+        /**
+         * 设置刚体位置和姿态角，position表示要设置的位置坐标，angle表示要设置的姿态角弧度
+         */
+        horizontalSlide.setTransform(new Vec2(horizontalSlide.getPosition().x + length ,
+                horizontalSlide.getPosition().y),0);
     }
 }
