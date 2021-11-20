@@ -14,8 +14,6 @@ import java.awt.geom.AffineTransform;
 
 //TODO:监听键盘按键
 public class HorizontalSlide extends Item{
-    private int width;
-    private int height;
     float hw ; //半宽
     float hh ; //半高
     Body horizontalSlide;

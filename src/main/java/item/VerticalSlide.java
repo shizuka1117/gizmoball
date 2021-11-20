@@ -12,8 +12,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class VerticalSlide extends Item{
-    private int width;
-    private int height;
     float hw ; //半宽
     float hh ; //半高
     Body verticalSlide;

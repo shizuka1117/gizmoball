@@ -12,8 +12,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class Square extends Item{
-    private int width;
-    private int height;
     float hw ;
     float hh ; //半宽 & 高
     Body squareInWorld;

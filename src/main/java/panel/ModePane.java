@@ -46,7 +46,7 @@ public class ModePane extends JPanel {
                     Item item = (Item) gamePane.getComponent(i);
                     item.destroyInWorld();
                 }
-                gamePane.addMouseListener(gamePane.newMyKeyListener());
+                gamePane.addMouseListener(gamePane.newMyMouseListener());
                 gamePane.updateUI();
             }
             else if(e.getSource()==button2){
@@ -57,7 +57,8 @@ public class ModePane extends JPanel {
                     item.initInWorld();
                 }
                 gamePane.begin();
-                gamePane.removeMouseListener(gamePane.getMyKeyListener());
+                gamePane.requestFocus();
+                gamePane.removeMouseListener(gamePane.getMyMouseListener());
                 new Thread(gamePane).start();
             }
         }

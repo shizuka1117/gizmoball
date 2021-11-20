@@ -8,8 +8,6 @@ import util.Constant;
 import java.awt.*;
 
 public class Rail extends Item{
-    private int width;
-    private int height;
     float hw,hh; // 半高 半宽
     Body rail1;
     Body rail2;

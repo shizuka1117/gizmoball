@@ -14,8 +14,6 @@ import java.awt.geom.AffineTransform;
 public class BlackHole extends Item {
     float radius;
     Body holeInWorld;
-    private int width;
-    private int height;
 
     //Constructor
     public BlackHole (Integer x, Integer y, String image){

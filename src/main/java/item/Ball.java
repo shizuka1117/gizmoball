@@ -16,8 +16,6 @@ import java.awt.geom.AffineTransform;
  */
 public class Ball extends Item {
     float radius;
-    int width;
-    int height;
     public transient Body ballInWorld;
 
     // 是否被吸收,是则不再显示

@@ -12,6 +12,7 @@ import java.io.*;
 
 public class GameFrame extends JFrame {
     IconUtil kv = new IconUtil();
+    private GamePane gamePane;
     /**
      * 静态代码块，初始化加载图片
      */
@@ -23,8 +24,6 @@ public class GameFrame extends JFrame {
         }
     }
 
-    private String nextItemName;
-    private GamePane gamePane;
     public GameFrame(){
         //初始化GameFrame顶层窗口
         setTitle("Gizmo Ball");
@@ -44,7 +43,7 @@ public class GameFrame extends JFrame {
         //初始化游戏面板
         setGamePane(new GamePane());
 
-        //
+        //初始化右侧工具面板
         JPanel rightPane = new JPanel();
         rightPane.setPreferredSize(new Dimension(220, 500));
         rightPane.setLayout(new BoxLayout(rightPane, 1));
@@ -62,16 +61,12 @@ public class GameFrame extends JFrame {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        GameFrame gameFrame = new GameFrame();
-    }
-    public String getNextItemName() {
-        return nextItemName;
+        new GameFrame();
     }
 
     public void setNextItemName(String nextItemName) {
-        this.nextItemName = nextItemName;
+        gamePane.setItemType(nextItemName);
     }
-
 
     public GamePane getGamePane() {
         return gamePane;
@@ -85,7 +80,7 @@ public class GameFrame extends JFrame {
             remove(this.gamePane);
         }
         this.gamePane = gamePane;
-       add(gamePane, 0);
+        add(gamePane, 0);
     }
 
     public void saveGamePane(File file) {

@@ -11,10 +11,17 @@ import java.io.IOException;
 import java.util.*;
 
 public class ItemPane extends JPanel {
+    private ItemActionListener itemActionListener = new ItemActionListener();
     //保存每个item的名称和对应的icon存储位置
+    public ItemActionListener newItemActionListener() {
+        return new ItemActionListener();
+    }
+
+    public ItemActionListener getItemActionListener() {
+        return itemActionListener;
+    }
     IconUtil kv = new IconUtil();
     public ItemPane() {
-        ItemActionListener itemActionListener = new ItemActionListener();
         Border titleBorder = BorderFactory.createTitledBorder("组件栏");
         setBorder(titleBorder);
         setBackground(Color.WHITE);

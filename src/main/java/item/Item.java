@@ -17,6 +17,8 @@ public abstract class Item extends JComponent {
 
     int x = 50;//左上角x坐标
     int y = 50;//左上角y坐标
+    int width;
+    int height;
     int scale;//放大倍数（必须>=1）
     double theta;//旋转角度
     transient Image image;

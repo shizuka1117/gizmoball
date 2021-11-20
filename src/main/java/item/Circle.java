@@ -14,8 +14,6 @@ import java.awt.geom.AffineTransform;
 public class Circle extends Item{
     float radius;
     Body circleInWorld;
-    private int width;
-    private int height;
 
     //Constructor
     public Circle (Integer x, Integer y, String image) {
