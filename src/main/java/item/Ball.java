@@ -19,7 +19,7 @@ public class Ball extends Item {
     int width;
     int height;
     public transient Body ballInWorld;
-    AffineTransform at = new AffineTransform();
+
     // 是否被吸收,是则不再显示
     private boolean isAbsorbed = false;
 
@@ -75,10 +75,9 @@ public class Ball extends Item {
         super.paint(g);
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
-            System.out.println(getX()+" "+getY());
-            //g2d.setTransform(at);
             g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
             g2d.drawImage(image,getX(), getY(),width,height,null);
+            g2d.dispose();
         }
 
     }
@@ -104,9 +103,6 @@ public class Ball extends Item {
     @Override
     public void rotation() {
         // do nothing
-        theta = (theta+90)%360;
-        //System.out.println(theta);
-        //at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 
     @Override

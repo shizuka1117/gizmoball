@@ -16,7 +16,6 @@ public class Circle extends Item{
     Body circleInWorld;
     private int width;
     private int height;
-    AffineTransform at = new AffineTransform();
 
     //Constructor
     public Circle (Integer x, Integer y, String image) {
@@ -36,7 +35,6 @@ public class Circle extends Item{
         //圆形
         CircleShape cs = new CircleShape();
         cs.m_radius = radius;
-        System.out.println("radius="+radius);
         fd.shape = cs;
         circleInWorld = Common.world.createBody(bd);
         circleInWorld.createFixture(fd);
@@ -46,7 +44,7 @@ public class Circle extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setTransform(at);
+        g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
         g2d.drawImage(image, x, y, width,height,null);
     }
 
@@ -72,8 +70,6 @@ public class Circle extends Item{
     @Override
     public void rotation() {
         theta = (theta+90)%360;
-        System.out.println(theta);
-        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 
     @Override
