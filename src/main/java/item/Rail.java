@@ -1,23 +1,20 @@
 package item;
 
+import org.jbox2d.collision.shapes.EdgeShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.*;
 import util.Constant;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class Rail extends Item{
-    Vec2[] m_vertices = new Vec2[4];
-    Integer h = Constant.BASE_HEIGHT;// 边长 25
-    Body railInWorld;
     private int width;
     private int height;
-    AffineTransform at = new AffineTransform();
+    int h = Constant.BASE_HEIGHT;
+    Body rail1;
+    Body rail2;
 
     public Rail(Integer x, Integer y, String image){
         super(x,y,image);
@@ -28,36 +25,42 @@ public class Rail extends Item{
 
     @Override
     public void initInWorld() {
-        super.initInWorld();
-        BodyDef bd = new BodyDef();  // 定义刚体
-        bd.position = new Vec2(x,y);
-        bd.type = BodyType.STATIC; //固定不动的
-        //刚体内部属性
-        FixtureDef fd = new FixtureDef();
-        PolygonShape ps = new PolygonShape();
-        m_vertices[0] = new Vec2(x,y);
-        m_vertices[1] = new Vec2(x+h,y);
-        m_vertices[2] = new Vec2(x+h,y+h);
-        m_vertices[3] = new Vec2(x,y+h);
-        //由左上角的坐标得到顶点数组
-        ps.set(m_vertices, 4); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
-        fd.shape = ps;
-        railInWorld = Common.world.createBody(bd);
-        railInWorld.createFixture(fd);
+        //初始化两条线段
+        BodyDef bd1 = new BodyDef();  // 定义刚体
+        bd1.position = new Vec2(x,y+h/2);
+        bd1.type = BodyType.STATIC; //固定不动的
+        FixtureDef fd1 = new FixtureDef();
+        EdgeShape es1 = new EdgeShape();
+        es1.set(new Vec2(x,y), new Vec2(x,y+h));
+        fd1.shape =es1;
+
+        BodyDef bd2 = new BodyDef();
+        bd2.position = new Vec2(x+h,y + h/2);
+        bd2.type =BodyType.STATIC;
+        FixtureDef fd2 = new FixtureDef();
+        EdgeShape es2 = new EdgeShape();
+        es2.set(new Vec2(x+h,y), new Vec2(x+h,y));
+        fd2.shape = es2;
+
+        rail1 = Common.world.createBody(bd1);
+        rail1.createFixture(fd1);
+
+        rail2 = Common.world.createBody(bd2);
+        rail2.createFixture(fd2);
     }
 
     @Override
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-       // g2d.setTransform(at);
+        g2d.rotate(Math.toRadians(theta),x + h/2,y + h/2);
+        g2d.drawImage(image, x, y, width,height,null);
         g2d.drawImage(image, x, y, width,height,null);
     }
 
     @Override
     public void enlarge(){
         scale += 1;
-        h = Constant.BASE_HEIGHT*scale;
         width = Constant.BASE_WIDTH * scale;
         height = Constant.BASE_HEIGHT * scale;
     }
@@ -66,7 +69,6 @@ public class Rail extends Item{
     public void reduce(){
         if (scale > 1){
             scale -= 1;
-            h = Constant.BASE_HEIGHT*scale;
             width = Constant.BASE_WIDTH * scale;
             height = Constant.BASE_HEIGHT * scale;
         }
@@ -75,8 +77,10 @@ public class Rail extends Item{
     @Override
     public void rotation() {
         theta = (theta+90)%360;
-        System.out.println(theta);
-        at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);
     }
 
+    @Override
+    public void destroyInWorld(){
+        Common.world.destroyBody(rail1);
+    }
 }
