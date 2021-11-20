@@ -43,6 +43,7 @@ public class ModePane extends JPanel {
             if(e.getSource()==button1) {
                 gamePane.stop();
                 gamePane.addMouseListener(gamePane.newMyKeyListener());
+                gamePane.updateUI();
             }
             else if(e.getSource()==button2){
                 button1.setEnabled(true);

@@ -12,6 +12,9 @@ import java.io.*;
 
 public class GameFrame extends JFrame {
     IconUtil kv = new IconUtil();
+    /**
+     * 静态代码块，初始化加载图片
+     */
     {
         try {
             kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
@@ -19,9 +22,7 @@ public class GameFrame extends JFrame {
             exception.printStackTrace();
         }
     }
-    /**
-     * 静态代码块，初始化加载图片
-     */
+
     private String nextItemName;
     private GamePane gamePane;
     public GameFrame(){
@@ -36,12 +37,14 @@ public class GameFrame extends JFrame {
         });
         setSize(750, 500);
 
+        //初始化菜单
         MenuPane menuPane = new MenuPane();
         setJMenuBar(menuPane);
 
+        //初始化游戏面板
         setGamePane(new GamePane());
 
-
+        //
         JPanel rightPane = new JPanel();
         rightPane.setPreferredSize(new Dimension(220, 500));
         rightPane.setLayout(new BoxLayout(rightPane, 1));
@@ -56,7 +59,6 @@ public class GameFrame extends JFrame {
         add(rightPane);
         pack();
         setVisible(true);
-//        new Thread(gamePane).start();
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -104,14 +106,13 @@ public class GameFrame extends JFrame {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             setGamePane((GamePane)objectInputStream.readObject());
-            //重新加载item的Image
+            //Image不能序列化，因此要重新加载每个item的Image
             for(int i = 0; i<gamePane.getComponentCount(); i++){
                 Item item = ((Item)gamePane.getComponent(i));
                 String imageUrl = item.getImageUrl();
                 item.setImage(kv.getImageIcon(imageUrl).getImage());
             }
             gamePane.repaint();
-            System.out.println("组件数量："+gamePane.getComponentCount());
             objectInputStream.close();
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -28,7 +28,6 @@ public class BlackHole extends Item {
 
     @Override
     public void initInWorld() {
-        super.initInWorld();
         //定义刚体
         BodyDef hole = new BodyDef();
         hole.position = new Vec2(x,y);

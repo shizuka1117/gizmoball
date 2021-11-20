@@ -33,7 +33,6 @@ public class Triangle extends Item {
 
     @Override
     public void initInWorld() {
-        super.initInWorld();
         BodyDef bd = new BodyDef();  // 定义刚体
         bd.position = new Vec2(x,y);
         bd.type = BodyType.STATIC; //固定不动的
@@ -85,7 +84,7 @@ public class Triangle extends Item {
     }
 
     @Override
-    public void rotation() {
+    public void rotation(){
         theta = (theta+90)%360;
         System.out.println(theta);
         at.setToRotation(Math.toRadians(theta),x+width/2,y+height/2);

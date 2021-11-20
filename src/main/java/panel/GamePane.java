@@ -74,7 +74,6 @@ public class GamePane extends JPanel implements Runnable {
         }
         for(Component i: getComponents()){
             i.paint(g);
-            System.out.println(this.hashCode());
         }
     }
 

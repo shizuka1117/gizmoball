@@ -23,9 +23,6 @@ public abstract class Item extends JComponent {
     String imageUrl;
     //其他公有属性...
 
-    //静态代码块初始化配置文件
-
-
     public Item(Integer x, Integer y, String imageUrl){
         setX(x);
         setY(y);
@@ -89,15 +86,15 @@ public abstract class Item extends JComponent {
         this.imageUrl = imageUrl;
     }
 
-    /**
-     * 在子类中继续重写
-     * @param g
-     */
-    @Override
-    public void paint(Graphics g){
-        super.paint(g);
-        //g.drawImage(image, x, y,25,25,null);
-    }
+//    /**
+//     * 在子类中继续重写
+//     * @param g
+//     */
+//    @Override
+//    public void paint(Graphics g){
+//        super.paint(g);
+//        //g.drawImage(image, x, y,25,25,null);
+//    }
 
     //提供统一接口，在子类里进行重写的方法
     public abstract void enlarge(); //放大
@@ -106,6 +103,6 @@ public abstract class Item extends JComponent {
 
     public abstract void rotation(); //旋转
 
-    public void initInWorld(){ }  //在world中创建该item对应的刚体
+    public abstract void initInWorld();  //在world中创建该item对应的刚体
 
 }

@@ -29,7 +29,6 @@ public class VerticalSlide extends Item{
 
     @Override
     public void initInWorld() {
-        super.initInWorld();
         BodyDef bd = new BodyDef();  // 定义刚体
         bd.position = new Vec2(x,y);
         bd.type = BodyType.STATIC; //固定不动的

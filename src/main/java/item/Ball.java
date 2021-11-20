@@ -32,7 +32,6 @@ public class Ball extends Item {
 
     @Override
     public void initInWorld(){
-        super.initInWorld();
         //定义刚体
         BodyDef bd = new BodyDef();
         bd.position = new Vec2(x,y);
@@ -75,10 +74,8 @@ public class Ball extends Item {
         super.paint(g);
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
-            System.out.println(getX()+" "+getY());
             g2d.drawImage(image,getX(), getY(),width,height,null);
         }
-
     }
 
     @Override
