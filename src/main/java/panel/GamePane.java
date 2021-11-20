@@ -11,13 +11,22 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 
 import item.*;
 import util.IconUtil;
 
 public class GamePane extends JPanel implements Runnable {
+
     IconUtil kv = new IconUtil();
+    private transient String itemType;
+    private HorizontalSlide hSlide;
+    private VerticalSlide vSlide;
+    private volatile Boolean stop = false;//标志位，控制线程执行
+    private MyMouseListener myMouseListener = new MyMouseListener();
+    private MyKeyListener myKeyListener = new MyKeyListener();
+    private transient Item curItem;
+
+    //静态初始化用于添加Item
     {
         try {
             kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
@@ -25,13 +34,7 @@ public class GamePane extends JPanel implements Runnable {
             exception.printStackTrace();
         }
     }
-    private transient String itemType;
-    private HorizontalSlide hSlide;
-    private VerticalSlide vSlide;
-    public volatile Boolean stop = false;//标志位，控制线程执行
-    private MyMouseListener myMouseListener = new MyMouseListener();
-    private MyKeyListener myKeyListener = new MyKeyListener();
-    private transient Item curItem;
+
     public GamePane(){
         addMouseListener(myMouseListener);
         addKeyListener(myKeyListener);
@@ -41,9 +44,9 @@ public class GamePane extends JPanel implements Runnable {
         Common.updateBounds(500,500);
     }
 
-    public Component add(Item item){
+    public void add(Item item){
         curItem = item;
-        return super.add(item);
+        super.add(item);
     }
 
     public Item getCurItem() {
@@ -88,7 +91,7 @@ public class GamePane extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         //强制类型转换得到Graphics子类Graphics2D对象
-        Graphics2D g2 = (Graphics2D)g;//又得到一支笔
+        Graphics2D g2 = (Graphics2D)g;
         //绘制格子
         g2.setColor(Color.black);
         g2.fill3DRect(0, 0, 500, 500, true);
@@ -105,6 +108,9 @@ public class GamePane extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * 游玩模式，进入线程循环
+     */
     @Override
     public void run() {
         try{
@@ -117,6 +123,10 @@ public class GamePane extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 用于设置线程标志位
+     */
     public void stop(){
         stop = true;
     }
@@ -124,12 +134,16 @@ public class GamePane extends JPanel implements Runnable {
     public void begin(){
         stop = false;
     }
+
     private void logic() {
         Common.step();
     }
 
-
-    public class MyMouseListener implements MouseListener, Serializable {
+    /**
+     * 鼠标监听，在GamePane中添加Component
+     */
+    @SuppressWarnings("unchecked")
+    private class MyMouseListener implements MouseListener, Serializable {
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -140,29 +154,32 @@ public class GamePane extends JPanel implements Runnable {
                 String itemType = panel.getItemType();
                 int x = e.getX();
                 int y = e.getY();
-                if(!(itemType==null)&&!itemType.equals("Click")){
-                    try {
-                        if(panel.getComponentAt(x, y)==panel){
-                            Class<Item> onClass = (Class<Item>) Class.forName("item."+ itemType);
-                            Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, String.class);
-                            Item item = constructor.newInstance(x, y, itemType);
-                            item.setImage(kv.getImageIcon(itemType).getImage());
-                            panel.add(item);
-                            if(item instanceof HorizontalSlide)
-                                setHSlide((HorizontalSlide)item);
-                            if(item instanceof VerticalSlide)
-                                setVSlide((VerticalSlide)item);
-                            panel.repaint();
+                if(itemType!=null){
+                    if(!itemType.equals("Click")){
+                        try {
+                            if(panel.getComponentAt(x, y)==panel){
+                                Class<Item> onClass = (Class<Item>) Class.forName("item."+ itemType);
+                                Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, String.class);
+                                Item item = constructor.newInstance(x, y, itemType);
+                                item.setImage(kv.getImageIcon(itemType).getImage());
+                                panel.add(item);
+                                if(item instanceof HorizontalSlide)
+                                    setHSlide((HorizontalSlide)item);
+                                if(item instanceof VerticalSlide)
+                                    setVSlide((VerticalSlide)item);
+                                panel.repaint();
+                            }
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
                         }
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
                     }
                 }
-                else if(itemType.equals("Click")){
-                    //如果button值为click就判断当前点击的位置上是否有component
-                    Component component = panel.getComponentAt(x, y);
-                    System.out.println(component);
-                    if(component!=panel){
+
+                else{
+                        //如果button值为click就判断当前点击的位置上是否有component
+                        Component component = panel.getComponentAt(x, y);
+                        System.out.println(component);
+                        if(component!=panel){
                         panel.setCurItem((Item)component);
                     }
                 }
@@ -200,6 +217,7 @@ public class GamePane extends JPanel implements Runnable {
             GamePane panel = (GamePane)e.getSource();
             HorizontalSlide hSlide = panel.getHSlide();
             VerticalSlide vSlide = panel.getVSlide();
+            //TODO: 添加对刚体的修改
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
                     hSlide.setX(hSlide.getX()-25);break;
@@ -210,8 +228,7 @@ public class GamePane extends JPanel implements Runnable {
                 case KeyEvent.VK_D:
                     vSlide.setX(vSlide.getX()+25);break;
             }
-            System.out.println("pressed");
-            //TODO:修改刚体坐标
+
         }
         @Override
         public void keyReleased(KeyEvent e) {

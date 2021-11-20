@@ -16,15 +16,14 @@ import java.awt.geom.AffineTransform;
 public class HorizontalSlide extends Item{
     float hw ; //半宽
     float hh ; //半高
-    Body horizontalSlide;
+    public Body horizontalSlide;
 
     //constructor
     public HorizontalSlide(Integer x, Integer y, String image){
         super(x,y,image);
         //initHorizontalSlide();
-        this.width = 3*Constant.BASE_WIDTH;
+        this.width = 2*Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;
-
     }
 
     @Override
@@ -49,7 +48,6 @@ public class HorizontalSlide extends Item{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
-        g2d.drawImage(image, x, y, width,height,null);
         g2d.drawImage(image, x, y, width,height,null);
     }
 

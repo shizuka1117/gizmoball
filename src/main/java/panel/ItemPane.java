@@ -13,13 +13,6 @@ import java.util.*;
 public class ItemPane extends JPanel {
     private ItemActionListener itemActionListener = new ItemActionListener();
     //保存每个item的名称和对应的icon存储位置
-    public ItemActionListener newItemActionListener() {
-        return new ItemActionListener();
-    }
-
-    public ItemActionListener getItemActionListener() {
-        return itemActionListener;
-    }
     IconUtil kv = new IconUtil();
     public ItemPane() {
         Border titleBorder = BorderFactory.createTitledBorder("组件栏");
@@ -56,7 +49,6 @@ public class ItemPane extends JPanel {
     }
 
     private class ItemActionListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             String itemName = e.getActionCommand();

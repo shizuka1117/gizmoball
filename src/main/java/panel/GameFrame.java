@@ -13,9 +13,8 @@ import java.io.*;
 public class GameFrame extends JFrame {
     IconUtil kv = new IconUtil();
     private GamePane gamePane;
-    /**
-     * 静态代码块，初始化加载图片
-     */
+
+    //静态代码块，初始化加载图片
     {
         try {
             kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
@@ -46,7 +45,7 @@ public class GameFrame extends JFrame {
         //初始化右侧工具面板
         JPanel rightPane = new JPanel();
         rightPane.setPreferredSize(new Dimension(220, 500));
-        rightPane.setLayout(new BoxLayout(rightPane, 1));
+        rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.Y_AXIS));
         ToolPane toolPane = new ToolPane();
         ItemPane itemPane= new ItemPane();
         ModePane modePane = new ModePane();
@@ -72,6 +71,10 @@ public class GameFrame extends JFrame {
         return gamePane;
     }
 
+    /**
+     * 重置gamePane
+     * @param gamePane
+     */
     public void setGamePane(GamePane gamePane) {
         if(this.gamePane!=null){
             for (Component c:this.gamePane.getComponents()) {
@@ -83,20 +86,26 @@ public class GameFrame extends JFrame {
         add(gamePane, 0);
     }
 
+    /**
+     * 把GamePane写入文件
+     * @param file
+     */
     public void saveGamePane(File file) {
         try {
-            //写文件操作……
             ObjectOutputStream objectOutputStream=new ObjectOutputStream(new FileOutputStream(file));
             objectOutputStream.writeObject(gamePane);
             objectOutputStream.flush();
             objectOutputStream.close();
-
         } catch (IOException exception) {
             System.err.println("IO异常");
             exception.printStackTrace();
         }
     }
 
+    /**
+     * 加载GamePane
+     * @param file
+     */
     public void loadGamePane(File file) {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
