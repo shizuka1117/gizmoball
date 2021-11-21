@@ -49,11 +49,7 @@ public class ModePane extends JPanel {
                 button1.setEnabled(false);
                 gamePane.stop();
                 //删除刚体
-                for(int i = 0; i<gamePane.getComponentCount(); i++) {
-                    Item item = (Item) gamePane.getComponent(i);
-                    if(item.getBody()!=null)
-                        item.destroyInWorld();
-                }
+                gamePane.destroyAllBody();
                 //恢复添加item的监听器
                 gamePane.addMouseListener(gamePane.getMyMouseListener());
             }
@@ -61,12 +57,9 @@ public class ModePane extends JPanel {
             else if(e.getSource()==button2){
                 button1.setEnabled(true);
                 button2.setEnabled(false);
-                for(int i = 0; i<gamePane.getComponentCount(); i++){
-                    Item item = (Item)gamePane.getComponent(i);
-                    item.initInWorld();
-                }
                 //设置gamePane线程的循环标志位
                 gamePane.begin();
+                gamePane.initAllBody();
                 //设置gamePane能够获取键盘输入
                 gamePane.requestFocus();
                 //移除gamePane的鼠标监听（防止在游玩过程中添加item）

@@ -141,6 +141,21 @@ public class GamePane extends JPanel implements Runnable {
         Common.step();
     }
 
+    public void initAllBody() {
+        for(int i = 0; i<getComponentCount(); i++) {
+            Item item = (Item)getComponent(i);
+            item.initInWorld();
+        }
+    }
+
+    public void destroyAllBody(){
+        for(int i = 0; i<getComponentCount(); i++) {
+            Item item = (Item)getComponent(i);
+            if(item.getBody()!=null)
+                item.destroyInWorld();
+        }
+    }
+
     /**
      * 鼠标监听，在GamePane中添加Component
      */
