@@ -36,18 +36,11 @@ public class Rail extends Item{
         PolygonShape ps2 = new PolygonShape();
 
         if(theta == 0 || theta == 180 ){ // 竖的轨道
-
             bd1.position = new Vec2(x - hw ,y + hh);
             ps1.setAsBox(hw, hh);
-
             bd2.position = new Vec2(x + width + hw ,y + hh);
             ps2.setAsBox(hw,hh);
-
         }else if(theta == 90 || theta == 270){ // 横的轨道
-//
-//            bd1.position = new Vec2(x + hh  ,y - 5);
-//            ps1.setAsBox(hh,hw);
-
             bd2.position = new Vec2(x + hh, y + hw + height);
             ps2.setAsBox((float)height/2,hw);
         }

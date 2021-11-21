@@ -17,7 +17,6 @@ public class RightSlide extends Item{
     //constructor
     public RightSlide(Integer x, Integer y, String image){
         super(x,y,image);
-        //initHorizontalSlide();
         width = 3*Constant.BASE_WIDTH;
         height = Constant.BASE_HEIGHT;
         setSize(width, height);

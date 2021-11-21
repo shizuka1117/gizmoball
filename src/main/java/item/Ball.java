@@ -71,7 +71,6 @@ public class Ball extends Item {
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
             System.out.println(getX()+" "+getY());
-            //g2d.setTransform(at);
             g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
             g2d.drawImage(image,getX(), getY(), width, height,null);
             g2d.dispose();

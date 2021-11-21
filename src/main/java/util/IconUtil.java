@@ -18,21 +18,12 @@ public class IconUtil extends Properties {
             return Collections.enumeration(keys);
         }
 
-        /**
-         * 在put的时候，只是把key有序的存到{@link IconUtil#keys}
-         * 取值的时候，根据有序的keys，可以有序的取出所有value
-         * 依然调用父类的put方法,也就是key value 键值对还是存在hashTable里.
-         * 只是现在多了个存key的属性{@link IconUtil#keys}
-         */
         @Override
         public Object put(Object key, Object value) {
             keys.add(key);
             return super.put(key, value);
         }
 
-        /**
-         * 因为复写了这个方法，在（方式一）的时候,才输出有序。
-         */
         @Override
         public Set<String> stringPropertyNames() {
             Set<String> set = new LinkedHashSet<>();
@@ -42,17 +33,11 @@ public class IconUtil extends Properties {
             return set;
         }
 
-        /**
-         * 因为复写了这个方法，在（方式二）的时候,才输出有序。
-         */
         @Override
         public Set<Object> keySet() {
             return keys;
         }
 
-        /**
-         * 因为复写了这个方法，在（方式四）的时候,才输出有序。
-         */
         @Override
         public Enumeration<?> propertyNames() {
             return Collections.enumeration(keys);

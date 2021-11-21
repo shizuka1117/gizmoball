@@ -70,7 +70,6 @@ public class Triangle extends Item {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x + h/2,y + h/2);
-       // g2d.setTransform(at);
         g2d.drawImage(image, x, y, width,height,null);
     }
 
