@@ -54,13 +54,8 @@ public class RightSlide extends Item{
     }
 
     @Override
-    public void reduce(){
+    public void reduce() {
 
-    }
-
-    @Override
-    public  void rotation(){
-        // do nothing
     }
 
     //移动挡板？

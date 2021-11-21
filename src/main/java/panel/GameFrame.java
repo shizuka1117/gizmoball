@@ -10,6 +10,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 
+/**
+ * 顶层Frame类，包含各种Pane
+ */
 public class GameFrame extends JFrame {
     IconUtil kv = new IconUtil();
     private GamePane gamePane;
@@ -106,7 +109,7 @@ public class GameFrame extends JFrame {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             setGamePane((GamePane)objectInputStream.readObject());
-            //Image不能序列化，因此要重新加载每个item的Image
+            //Image不能序列化，因此重新加载GamePane时也要重新加载每个item的Image
             for(int i = 0; i<gamePane.getComponentCount(); i++){
                 Item item = ((Item)gamePane.getComponent(i));
                 String imageUrl = item.getImageUrl();

@@ -15,6 +15,9 @@ import java.lang.reflect.Constructor;
 import item.*;
 import util.IconUtil;
 
+/**
+ * GamePane类，用于摆放组件和进行游戏
+ */
 public class GamePane extends JPanel implements Runnable {
 
     IconUtil kv = new IconUtil();
@@ -153,16 +156,16 @@ public class GamePane extends JPanel implements Runnable {
                 int x = e.getX();
                 int y = e.getY();
                 if(itemType!=null){
-                    System.out.println("点到了");
                     if(!itemType.equals("Click")){
                         try {
                             if(panel.getComponentAt(x, y)==panel){
-                                System.out.println("添加");
+                                System.out.println("添加新item");
                                 Class<Item> onClass = (Class<Item>) Class.forName("item."+ itemType);
                                 Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, String.class);
                                 Item item = constructor.newInstance(x, y, itemType);
                                 item.setImage(kv.getImageIcon(itemType).getImage());
                                 panel.add(item);
+                                //如果加入的是挡板，需要额外设置为GamePane的属性，便于后续处理键盘事件监听
                                 if(item instanceof LeftSlide)
                                     setLSlide((LeftSlide)item);
                                 if(item instanceof RightSlide)
@@ -174,16 +177,15 @@ public class GamePane extends JPanel implements Runnable {
                         }
                     }
                     else{
-                        //如果button值为click就判断当前点击的位置上是否有component
+                        //如果button值为click，就判断当前点击的位置上是否有component
                         Component component = panel.getComponentAt(x, y);
                         System.out.println(component);
+                        //如果位置上没有GamePane以外的Component，则可以添加
                         if(component!=panel){
                             panel.setCurItem((Item)component);
                         }
                     }
                 }
-
-
             }
         }
 
@@ -208,6 +210,9 @@ public class GamePane extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * 键盘监听，用于控制左右挡板
+     */
     private class MyKeyListener implements KeyListener, Serializable {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -218,10 +223,12 @@ public class GamePane extends JPanel implements Runnable {
             GamePane panel = (GamePane)e.getSource();
             LeftSlide leftSlide = null;
             RightSlide rightSlide = null;
+            //获取左右挡板（如果有的话）
             if(panel.getLSlide()!=null)
               leftSlide = panel.getLSlide();
             if(panel.getRSlide()!=null)
                 rightSlide = panel.getRSlide();
+            //根据键盘输入修改对应Slide的位置
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
                     if(rightSlide!=null){

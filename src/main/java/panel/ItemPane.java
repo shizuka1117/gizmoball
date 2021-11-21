@@ -10,6 +10,9 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * ItemPane类，用于添加组件
+ */
 public class ItemPane extends JPanel {
     IconUtil kv = new IconUtil();
     //静态初始化用于显示组件列表

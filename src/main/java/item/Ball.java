@@ -100,11 +100,6 @@ public class Ball extends Item {
     }
 
     @Override
-    public void rotation() {
-        //do nothing
-    }
-
-    @Override
     public void destroyInWorld(){
         Common.world.destroyBody(body);
         body = null;

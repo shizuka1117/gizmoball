@@ -58,11 +58,6 @@ public class LeftSlide extends Item{
 
     }
 
-    @Override
-    public  void rotation(){
-        // do nothing
-    }
-
     //移动挡板？
     @Override
     public void destroyInWorld(){

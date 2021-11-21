@@ -102,7 +102,7 @@ public abstract class Item extends JComponent {
 
     public abstract void reduce();  //缩小
 
-    public void rotation(){
+    public void rotate(){
         theta = (theta+90)%360;
     } //旋转
 

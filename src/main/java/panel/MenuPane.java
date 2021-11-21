@@ -6,6 +6,9 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.EventListener;
 
+/**
+ * MenuPane类，用于新建、保存和读取游戏
+ */
 public class MenuPane extends JMenuBar {
 
     public MenuPane(){
@@ -27,7 +30,7 @@ public class MenuPane extends JMenuBar {
     }
 
     /**
-     * MenuPanel对应的Listener，用于处理新建、保存和读取游戏
+     * MenuPane对应的Listener，用于处理新建、保存和读取游戏
      */
     private class MenuClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -60,6 +63,7 @@ public class MenuPane extends JMenuBar {
             //保存时自动应用设计模式，停止动画
             JFileChooser chooser = new JFileChooser();
             int option = chooser.showSaveDialog(null);
+            //文件保存逻辑
             if(option==JFileChooser.APPROVE_OPTION){	//假如用户选择了保存
                 File file = chooser.getSelectedFile();
                 String fName = chooser.getName(file);	//从文件名输入框中获取文件名
@@ -79,7 +83,6 @@ public class MenuPane extends JMenuBar {
             chooser.setMultiSelectionEnabled(false); // 设为单选
             GameFrame gameFrame = (GameFrame) getRootPane().getParent();
             int returnVal = chooser.showOpenDialog(gameFrame); // 判断是否打开文件选择框
-            System.out.println("returnVal=" + returnVal);
             if (returnVal == JFileChooser.APPROVE_OPTION) { // 如果符合文件类型
                 File file = chooser.getSelectedFile();
                 gameFrame.loadGamePane(file);
