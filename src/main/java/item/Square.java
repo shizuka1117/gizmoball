@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 public class Square extends Item{
     float hw ;
@@ -19,10 +18,10 @@ public class Square extends Item{
     //Constructor
     public Square(Integer x, Integer y, String image){
         super(x,y,image);
-        this.width = Constant.BASE_WIDTH;
-        this.height = Constant.BASE_HEIGHT;
-        this.hw = width/2;
-        this.hh = height/2;
+        this.mwidth = Constant.BASE_WIDTH;
+        this.mheight = Constant.BASE_HEIGHT;
+        this.hw = mwidth /2;
+        this.hh = mheight /2;
     }
 
     @Override
@@ -37,8 +36,8 @@ public class Square extends Item{
         /**
          * 将多边形设置为矩形，hw表示矩形半宽，hh表示矩形的半高
          */
-        hw = (float) width/2;
-        hh = (float) height/2;
+        hw = (float) mwidth /2;
+        hh = (float) mheight /2;
         ps.setAsBox(hw,hh);
         fd.shape = ps;
         squareInWorld = Common.world.createBody(bd);
@@ -50,29 +49,29 @@ public class Square extends Item{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
-        g2d.drawImage(image,x,y,width,height,null);
+        g2d.drawImage(image,x,y, mwidth, mheight,null);
     }
 
     @Override
     public void enlarge(){
         scale += 1;
-        width = Constant.BASE_WIDTH * scale;
-        height = Constant.BASE_HEIGHT * scale;
-        hw = (float) width/2;
-        hh = (float) height/2;
-        setSize(width, height);
+        mwidth = Constant.BASE_WIDTH * scale;
+        mheight = Constant.BASE_HEIGHT * scale;
+        hw = (float) mwidth /2;
+        hh = (float) mheight /2;
+        setSize(mwidth, mheight);
     }
 
     @Override
     public void reduce(){
         if (scale > 1){
             scale -= 1;
-            width = Constant.BASE_WIDTH * scale;
-            height = Constant.BASE_HEIGHT * scale;
-            hw = (float) width/2;
-            hh = (float) height/2;
+            mwidth = Constant.BASE_WIDTH * scale;
+            mheight = Constant.BASE_HEIGHT * scale;
+            hw = (float) mwidth /2;
+            hh = (float) mheight /2;
         }
-        setSize(width, height);
+        setSize(mwidth, mheight);
     }
 
     @Override
