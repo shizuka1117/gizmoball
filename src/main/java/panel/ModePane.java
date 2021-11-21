@@ -35,7 +35,6 @@ public class ModePane extends JPanel {
     /**
      * ModePanel对应的Listener，用于切换游戏模式
      */
-    //TODO: 重新布局时检测
      private class ModeActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {

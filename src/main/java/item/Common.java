@@ -55,7 +55,6 @@ public class Common {
 
                 }
                 System.out.println(gamePane.getComponentCount());
-                //TODO:
             }
 
             @Override

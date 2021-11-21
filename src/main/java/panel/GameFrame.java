@@ -59,10 +59,6 @@ public class GameFrame extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        new GameFrame();
-    }
-
     public void setNextItemName(String nextItemName) {
         gamePane.setItemType(nextItemName);
     }

@@ -222,7 +222,6 @@ public class GamePane extends JPanel implements Runnable {
               leftSlide = panel.getLSlide();
             if(panel.getRSlide()!=null)
                 rightSlide = panel.getRSlide();
-            //TODO: 修改挡板判定
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
                     if(rightSlide!=null){

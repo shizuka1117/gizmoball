@@ -10,7 +10,7 @@ import util.Constant;
 
 import java.awt.*;
 
-//TODO:监听键盘按键
+//监听键盘按键
 public class LeftSlide extends Item{
     float hw ; //半宽
     float hh ; //半高
