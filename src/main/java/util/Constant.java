@@ -7,4 +7,5 @@ public interface Constant extends Serializable {
     double BASE_RADIUS = BASE_LENGTH/2;
     int BASE_WIDTH = 25;
     int BASE_HEIGHT = 25;
+    int RATE = 25;
 }

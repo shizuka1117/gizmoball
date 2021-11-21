@@ -38,7 +38,7 @@ public class Ball extends Item {
         cs.m_radius = radius;
         fd.shape = cs;
         fd.restitution = 1f;
-
+        fd.friction = 0.5f;
         body = Common.world.createBody(bd);
         body.createFixture(fd);
     }
@@ -70,6 +70,8 @@ public class Ball extends Item {
         super.paint(g);
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
+            System.out.println(getX()+" "+getY());
+            //g2d.setTransform(at);
             g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
             g2d.drawImage(image,getX(), getY(), width, height,null);
             g2d.dispose();
@@ -99,7 +101,7 @@ public class Ball extends Item {
 
     @Override
     public void rotation() {
-        // do nothing
+        //do nothing
     }
 
     @Override

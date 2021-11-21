@@ -97,9 +97,6 @@ public class Common {
         //描述
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-//        fixtureDef.density = mDesity;
-//        fixtureDef.friction = mFriction;//摩擦系数
-//        fixtureDef.restitution = mRestitution; //补偿系数
 
         //确定左侧刚体的位置
         bodyDef.position.set(-1, 0);//左侧为-1，0
@@ -118,7 +115,6 @@ public class Common {
         shape.setAsBox(width, 1);
         //重新赋值下形状
         fixtureDef.shape = shape;
-
         //确定上侧刚体的位置
         bodyDef.position.set(0, -1);//上侧为0，-1
         //通过世界创建刚体并赋予属性

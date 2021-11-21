@@ -66,11 +66,6 @@ public class Circle extends Item{
     }
 
     @Override
-    public void rotation() {
-        theta = (theta+90)%360;
-    }
-
-    @Override
     public void destroyInWorld(){
         Common.world.destroyBody(body);
     }
