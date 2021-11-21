@@ -4,10 +4,15 @@ import org.jbox2d.dynamics.Body;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+//TODO:编写继承Item的子类
+//TODO:运动过程中component的位置和大小也要修改
 /**
- * 继承JComponent用于画图，由于JComponent已经实现了Serializable，可以用于序列化保存
+ * 继承Jcomponent用于画图，并且JComponent已经实现了Serializable可以用于序列化保存
  */
+//TODO:修改setX和setY，使其落在格子内部
 public abstract class Item extends JComponent {
 
     int x = 50;//左上角x坐标
@@ -97,7 +102,9 @@ public abstract class Item extends JComponent {
 
     public abstract void reduce();  //缩小
 
-    public abstract void rotation(); //旋转
+    public void rotation(){
+        theta = (theta+90)%360;
+    } //旋转
 
     public abstract void initInWorld();  //在world中创建该item对应的刚体
 

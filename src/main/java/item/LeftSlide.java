@@ -59,8 +59,8 @@ public class LeftSlide extends Item{
     }
 
     @Override
-    public void rotation() {
-        theta = (theta+90)%360;
+    public  void rotation(){
+        // do nothing
     }
 
     //移动挡板？

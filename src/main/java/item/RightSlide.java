@@ -47,6 +47,7 @@ public class RightSlide extends Item{
         g2d.drawImage(image, x, y, width, height,null);
     }
 
+    //挡板不能放大缩小
     @Override
     public void enlarge(){
 
@@ -58,8 +59,8 @@ public class RightSlide extends Item{
     }
 
     @Override
-    public void rotation() {
-        theta = (theta+90)%360;
+    public  void rotation(){
+        // do nothing
     }
 
     //移动挡板？

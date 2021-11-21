@@ -25,8 +25,8 @@ public class Rail extends Item{
         BodyDef bd1 = new BodyDef();  // 定义刚体
         BodyDef bd2 = new BodyDef();
         //管道 看作两个非常细的矩形
-        hw = (float) 1/5;
-        hh = (float) height /2-2;
+        hw = (float) 1/100;
+        hh = (float) height /2 - 5;
 
         FixtureDef fd1 = new FixtureDef();
         FixtureDef fd2 = new FixtureDef();
@@ -48,7 +48,7 @@ public class Rail extends Item{
 //            ps1.setAsBox(hh,hw);
 
             bd2.position = new Vec2(x + hh, y + hw + height);
-            ps2.setAsBox(hh,hw);
+            ps2.setAsBox((float)height/2,hw);
         }
 
         fd1.shape = ps1;
@@ -83,11 +83,6 @@ public class Rail extends Item{
             width = Constant.BASE_WIDTH * scale;
             height = Constant.BASE_HEIGHT * scale;
         }
-    }
-
-    @Override
-    public void rotation() {
-        theta = (theta+90)%360;
     }
 
     @Override
