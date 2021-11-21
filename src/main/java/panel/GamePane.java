@@ -127,14 +127,19 @@ public class GamePane extends JPanel implements Runnable {
     }
 
     /**
-     * 用于设置线程标志位
+     * 设置线程标志位stop为true，并且删除所有刚体
      */
     public void stop(){
         stop = true;
+        destroyAllBody();
     }
 
+    /**
+     * 设置线程标志位stop为false，并且初始化所有刚体
+     */
     public void begin(){
         stop = false;
+        initAllBody();
     }
 
     private void logic() {
