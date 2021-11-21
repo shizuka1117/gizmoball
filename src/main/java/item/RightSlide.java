@@ -11,22 +11,20 @@ import util.Constant;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class VerticalSlide extends Item{
+public class RightSlide extends Item{
     float hw ; //半宽
     float hh ; //半高
-    public Body horizontalSlide;
+    Body RightSlide;
 
     //constructor
-    public VerticalSlide(Integer x, Integer y, String image){
+    public RightSlide(Integer x, Integer y, String image){
         super(x,y,image);
-        //initHorizontalSlide();
         this.width = 2*Constant.BASE_WIDTH;
         this.height = Constant.BASE_HEIGHT;
     }
 
     @Override
     public void initInWorld() {
-        //super.initInWorld();
         BodyDef bd = new BodyDef();  // 定义刚体
         hw = (float) width/2;
         hh = (float) height/2;
@@ -34,11 +32,13 @@ public class VerticalSlide extends Item{
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
         FixtureDef fd = new FixtureDef();
+        //多边形
         PolygonShape ps = new PolygonShape();
-        ps.setAsBox(hw,hh/5);
+        // 将多边形设置为矩形，hw表示矩形半宽，hh表示矩形的半高
+        ps.setAsBox(hw/5,hh);
         fd.shape = ps;
-        horizontalSlide = Common.world.createBody(bd);
-        horizontalSlide.createFixture(fd);
+        RightSlide = Common.world.createBody(bd);
+        RightSlide.createFixture(fd);
     }
 
     @Override
@@ -50,27 +50,6 @@ public class VerticalSlide extends Item{
     }
 
     @Override
-    public void enlarge(){
-//        scale += 1;
-//        width = (3 * Constant.BASE_WIDTH) * scale;
-//        height = Constant.BASE_HEIGHT * scale;
-//        hw = width/2;
-//        hh = height/2;
-
-    }
-
-    @Override
-    public void reduce(){
-//        if (scale > 1){
-//            scale -= 1;
-//            width = (3 * Constant.BASE_WIDTH) * scale;
-//            height = Constant.BASE_HEIGHT * scale;
-//            hw = width/2;
-//            hh = height/2;
-//        }
-    }
-
-    @Override
     public void rotation() {
         theta = (theta+90)%360;
     }
@@ -78,6 +57,6 @@ public class VerticalSlide extends Item{
     //移动挡板？
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(horizontalSlide);
+        Common.world.destroyBody(RightSlide);
     }
 }

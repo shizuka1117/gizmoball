@@ -20,24 +20,38 @@ public class Rail extends Item{
 
     @Override
     public void initInWorld() {
+
         //初始化两条线段
         BodyDef bd1 = new BodyDef();  // 定义刚体
-        //管道 看作两个非常细的矩形
-        hw = (float)width/20;
-        hh = (float)height/2;
-        bd1.position = new Vec2(x-hw,y+hh);
-        bd1.type = BodyType.STATIC; //固定不动的
-        FixtureDef fd1 = new FixtureDef();
-        PolygonShape ps1 = new PolygonShape();
-        ps1.setAsBox(hw, hh);
-        fd1.shape = ps1;
-
         BodyDef bd2 = new BodyDef();
-        bd2.position = new Vec2(x+width+hw,y + hh);
-        bd2.type =BodyType.STATIC;
+        //管道 看作两个非常细的矩形
+        hw = (float) 1/5;
+        hh = (float) height/2-2;
+
+        FixtureDef fd1 = new FixtureDef();
         FixtureDef fd2 = new FixtureDef();
+
+        PolygonShape ps1 = new PolygonShape();
         PolygonShape ps2 = new PolygonShape();
-        ps2.setAsBox(hw,hh);
+
+        if(theta == 0 || theta == 180 ){ // 竖的轨道
+
+            bd1.position = new Vec2(x - hw ,y + hh);
+            ps1.setAsBox(hw, hh);
+
+            bd2.position = new Vec2(x + width + hw ,y + hh);
+            ps2.setAsBox(hw,hh);
+
+        }else if(theta == 90 || theta == 270){ // 横的轨道
+//
+//            bd1.position = new Vec2(x + hh  ,y - 5);
+//            ps1.setAsBox(hh,hw);
+
+            bd2.position = new Vec2(x + hh, y + hw + height);
+            ps2.setAsBox(hh,hw);
+        }
+
+        fd1.shape = ps1;
         fd2.shape = ps2;
 
         rail1 = Common.world.createBody(bd1);
@@ -79,5 +93,6 @@ public class Rail extends Item{
     @Override
     public void destroyInWorld(){
         Common.world.destroyBody(rail1);
+        Common.world.destroyBody(rail2);
     }
 }
