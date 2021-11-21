@@ -1,5 +1,7 @@
-package item;
+package util;
 
+import item.BlackHole;
+import item.Item;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
@@ -14,6 +16,9 @@ import util.IconUtil;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * 控制World类（物理引擎）
+ */
 public class Common {
     private GamePane gamePane;
     public static World world = new World(new Vec2(0f,10f));
