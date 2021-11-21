@@ -11,15 +11,15 @@ import util.Constant;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class VerticalSlide extends Item{
+public class RightSlide extends Item{
     private int width;
     private int height;
     float hw ; //半宽
     float hh ; //半高
-    Body verticalSlide;
+    Body RightSlide;
 
     //constructor
-    public VerticalSlide(Integer x, Integer y, String image){
+    public RightSlide(Integer x, Integer y, String image){
         super(x,y,image);
         this.width = Constant.BASE_WIDTH;
         this.height = 3*Constant.BASE_HEIGHT;
@@ -41,8 +41,8 @@ public class VerticalSlide extends Item{
          */
         ps.setAsBox(hw/5,hh);
         fd.shape = ps;
-        verticalSlide = Common.world.createBody(bd);
-        verticalSlide.createFixture(fd);
+        RightSlide = Common.world.createBody(bd);
+        RightSlide.createFixture(fd);
     }
     @Override
     public void paint(Graphics g){
@@ -56,22 +56,12 @@ public class VerticalSlide extends Item{
     //挡板不能放大缩小
     @Override
     public void enlarge(){
-//        scale += 1;
-//        width = Constant.BASE_WIDTH * scale;
-//        height = (3 * Constant.BASE_HEIGHT) * scale;
-//        hw = width/2;
-//        hh = height/2;
+
     }
 
     @Override
     public void reduce(){
-//        if (scale > 1){
-//            scale -= 1;
-//            width = Constant.BASE_WIDTH * scale;
-//            height = (3 * Constant.BASE_HEIGHT) * scale;
-//            hw = width/2;
-//            hh = height/2;
-//        }
+
     }
 
     @Override
@@ -82,6 +72,6 @@ public class VerticalSlide extends Item{
     //移动挡板？
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(verticalSlide);
+        Common.world.destroyBody(RightSlide);
     }
 }
