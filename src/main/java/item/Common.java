@@ -49,35 +49,34 @@ public class Common {
                 Component component1 = gamePane.getComponentAt((int)position1.x, (int)position1.y);
                 Component component2 = gamePane.getComponentAt((int)position2.x, (int)position2.y);
                 //为什么第一次碰撞能检测到component，第二次就检测不到？
-                if(component1 instanceof BlackHole || component2 instanceof BlackHole){
-                    gamePane.stop();
-                    component1 = gamePane.getComponentAt((int)position1.x, (int)position1.y);
-                    component2 = gamePane.getComponentAt((int)position2.x, (int)position2.y);
-                    System.out.println(component1);
-                    System.out.println(component2);
-                    if (component1 instanceof Ball)
-                        gamePane.remove(component1);
-                    else if(component2 instanceof Ball)
-                        gamePane.remove(component2);
-                }
-
-                gamePane.updateUI();
+//                if(component1 instanceof BlackHole || component2 instanceof BlackHole){
+//                    gamePane.stop();
+//                    System.out.println("stp");
+//                    component1 = gamePane.getComponentAt((int)position1.x, (int)position1.y);
+//                    component2 = gamePane.getComponentAt((int)position2.x, (int)position2.y);
+//                    if (component1 instanceof Ball){
+//                        gamePane.remove(component1);
+//                        ((Ball) component1).destroyInWorld();
+//                    }
+//                    else if(component2 instanceof Ball){
+//                        gamePane.remove(component2);
+//                        ((Ball) component2).destroyInWorld();
+//                    }
+//                    gamePane.updateUI();
+//                }
                 //TODO:
             }
 
             @Override
             public void endContact(Contact contact) {
-                System.out.println("endContact");
             }
 
             @Override
             public void preSolve(Contact contact, Manifold manifold) {
-                System.out.println("preSolve");
             }
 
             @Override
             public void postSolve(Contact contact, ContactImpulse contactImpulse) {
-                System.out.println("postSolve");
             }
         });
     }
@@ -117,7 +116,7 @@ public class Common {
         body.createFixture(fixtureDef);
 
         //确定右侧刚体的位置
-        bodyDef.position.set(width + 1, 0);//右侧为mWidth+1，0
+        bodyDef.position.set(width + 1, 0);//右侧为width+1，0
         //通过世界创建刚体并赋予属性
         world.createBody(bodyDef).createFixture(fixtureDef);
 
@@ -133,7 +132,7 @@ public class Common {
         world.createBody(bodyDef).createFixture(fixtureDef);
 
         //确定下侧刚体的位置
-        bodyDef.position.set(0, height + 1);//下侧为0，mHeight+1
+        bodyDef.position.set(0, height + 1);//下侧为0，height+1
         //通过世界创建刚体并赋予属性
         world.createBody(bodyDef).createFixture(fixtureDef);
     }

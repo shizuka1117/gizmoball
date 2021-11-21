@@ -26,7 +26,7 @@ public class Rail extends Item{
         BodyDef bd2 = new BodyDef();
         //管道 看作两个非常细的矩形
         hw = (float) 1/5;
-        hh = (float) height/2-2;
+        hh = (float) height /2-2;
 
         FixtureDef fd1 = new FixtureDef();
         FixtureDef fd2 = new FixtureDef();
@@ -65,8 +65,8 @@ public class Rail extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.rotate(Math.toRadians(theta),x + width/2,y + height/2);
-        g2d.drawImage(image, x, y, width,height,null);
+        g2d.rotate(Math.toRadians(theta),x + width /2,y + height /2);
+        g2d.drawImage(image, x, y, width, height,null);
     }
 
     @Override

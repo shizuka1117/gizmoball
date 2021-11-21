@@ -18,8 +18,8 @@ public class BlackHole extends Item {
     public BlackHole (Integer x, Integer y, String image){
         super(x, y, image);
         this.radius = (float) Constant.BASE_RADIUS;
-        this.mwidth = Constant.BASE_WIDTH;
-        this.mheight = Constant.BASE_HEIGHT;
+        this.width = Constant.BASE_WIDTH;
+        this.height = Constant.BASE_HEIGHT;
     }
 
     @Override
@@ -44,15 +44,15 @@ public class BlackHole extends Item {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
-        g2d.drawImage(image, x, y, mwidth, mheight,null);
+        g2d.drawImage(image, x, y, width, height,null);
     }
 
     @Override
     public void enlarge(){
         scale += 1;
         radius = (float)Constant.BASE_RADIUS*scale;
-        mwidth = Constant.BASE_WIDTH * scale;
-        mheight = Constant.BASE_HEIGHT * scale;
+        width = Constant.BASE_WIDTH * scale;
+        height = Constant.BASE_HEIGHT * scale;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class BlackHole extends Item {
         if (scale > 1){
             scale -= 1;
             radius = (float)Constant.BASE_RADIUS * scale;
-            mwidth = Constant.BASE_WIDTH * scale;
-            mheight = Constant.BASE_HEIGHT * scale;
+            width = Constant.BASE_WIDTH * scale;
+            height = Constant.BASE_HEIGHT * scale;
         }
     }
 

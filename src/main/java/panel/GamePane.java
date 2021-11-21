@@ -116,6 +116,7 @@ public class GamePane extends JPanel implements Runnable {
                 Thread.sleep(5);
                 this.repaint();
                 logic();
+                System.out.println(getComponent(0));
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 public class Circle extends Item{
     float radius;
@@ -43,7 +42,7 @@ public class Circle extends Item{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
-        g2d.drawImage(image, x, y, width,height,null);
+        g2d.drawImage(image, x, y, width, height,null);
     }
 
     @Override

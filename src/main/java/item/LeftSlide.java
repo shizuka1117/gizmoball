@@ -1,6 +1,5 @@
 package item;
 
-import org.jbox2d.collision.shapes.EdgeShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -10,7 +9,6 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 //TODO:监听键盘按键
 public class LeftSlide extends Item{
@@ -30,8 +28,8 @@ public class LeftSlide extends Item{
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-        hw = (float) width/2;
-        hh = (float) height/2;
+        hw = (float) width /2;
+        hh = (float) height /2;
         bd.position = new Vec2(x + hw, y + hh);
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
@@ -48,7 +46,7 @@ public class LeftSlide extends Item{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
-        g2d.drawImage(image, x, y, width,height,null);
+        g2d.drawImage(image, x, y, width, height,null);
     }
 
     @Override

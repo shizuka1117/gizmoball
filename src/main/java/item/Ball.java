@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 /**
  * 小球继承Runnable用于多线程运行
@@ -73,7 +72,7 @@ public class Ball extends Item {
         if(!isAbsorbed){
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
-            g2d.drawImage(image,getX(), getY(),width,height,null);
+            g2d.drawImage(image,getX(), getY(), width, height,null);
             g2d.dispose();
         }
 

@@ -19,9 +19,6 @@ public class Curve extends Item {
     int count = 3; //vertex number
     int h = Constant.BASE_HEIGHT ; //三角形边长
     Body curveInWorld;
-    private int width;
-    private int height;
-
 
     //Constructor
     public Curve(Integer x, Integer y, String image){

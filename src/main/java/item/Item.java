@@ -21,7 +21,6 @@ public abstract class Item extends JComponent {
         setX(x);
         setY(y);
         setImageUrl(imageUrl);
-        setSize(25, 25);
         setBounds(this.x, this.y, 25, 25);
         this.scale = 1;
         this.theta = 0;

@@ -1,5 +1,6 @@
 package panel;
 
+import item.Ball;
 import item.Item;
 
 import javax.swing.*;
@@ -63,7 +64,6 @@ public class ModePane extends JPanel {
                 gamePane.requestFocus();
                 gamePane.removeMouseListener(gamePane.getMyMouseListener());
                 System.out.println(gamePane.getMyMouseListener());
-                System.out.println(gamePane.hashCode());
                 new Thread(gamePane).start();
             }
         }
