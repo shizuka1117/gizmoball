@@ -15,7 +15,6 @@ import java.awt.*;
  */
 public class Ball extends Item {
     float radius;
-    public transient Body ballInWorld;
 
     // 是否被吸收,是则不再显示
     private boolean isAbsorbed = false;
@@ -40,14 +39,14 @@ public class Ball extends Item {
         fd.shape = cs;
         fd.restitution = 1f;
 
-        ballInWorld = Common.world.createBody(bd);
-        ballInWorld.createFixture(fd);
+        body = Common.world.createBody(bd);
+        body.createFixture(fd);
     }
 
     public int getX(){
         int X;
-        if(ballInWorld != null){
-            X = (int)(ballInWorld.getPosition().x - radius);
+        if(body != null){
+            X = (int)(body.getPosition().x - radius);
         }
         else {
             X = x; //x y 记录初始位置， X Y 记录实时位置
@@ -57,8 +56,8 @@ public class Ball extends Item {
 
     public int getY(){
         int Y;
-        if(ballInWorld != null){
-            Y = (int)(ballInWorld.getPosition().y - radius);
+        if(body != null){
+            Y = (int)(body.getPosition().y - radius);
         }
         else {
             Y = y;
@@ -105,7 +104,7 @@ public class Ball extends Item {
 
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(ballInWorld);
-        ballInWorld = null;
+        Common.world.destroyBody(body);
+        body = null;
     }
 }

@@ -95,4 +95,9 @@ public class Rail extends Item{
         Common.world.destroyBody(rail1);
         Common.world.destroyBody(rail2);
     }
+
+    @Override
+    public Body getBody() {
+        return rail1;
+    }
 }

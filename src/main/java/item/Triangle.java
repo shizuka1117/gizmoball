@@ -10,15 +10,11 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 public class Triangle extends Item {
     float worldX, worldY; //坐标/2
     int count = 3; //vertex number
     int h = Constant.BASE_HEIGHT ; //三角形边长
-    Body triangleInWorld;
-    private int width;
-    private int height;
 
 
     //Constructor
@@ -64,8 +60,8 @@ public class Triangle extends Item {
 
         fd.shape = ps;
         fd.density = 0f;
-        triangleInWorld = Common.world.createBody(bd);
-        triangleInWorld.createFixture(fd);
+        body = Common.world.createBody(bd);
+        body.createFixture(fd);
 
     }
 
@@ -105,6 +101,6 @@ public class Triangle extends Item {
 
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(triangleInWorld);
+        Common.world.destroyBody(body);
     }
 }

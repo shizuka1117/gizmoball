@@ -1,6 +1,5 @@
 package item;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -10,7 +9,6 @@ import org.jbox2d.dynamics.FixtureDef;
 import util.Constant;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
 import static util.Constant.BASE_HEIGHT;
 
@@ -18,7 +16,6 @@ public class Curve extends Item {
     float worldX, worldY; //坐标/2
     int count = 3; //vertex number
     int h = Constant.BASE_HEIGHT ; //三角形边长
-    Body curveInWorld;
 
     //Constructor
     public Curve(Integer x, Integer y, String image){
@@ -68,8 +65,8 @@ public class Curve extends Item {
 
         fd.shape = ps;
         fd.density = 0f;
-        curveInWorld = Common.world.createBody(bd);
-        curveInWorld.createFixture(fd);
+        body = Common.world.createBody(bd);
+        body.createFixture(fd);
 
     }
 
@@ -108,6 +105,6 @@ public class Curve extends Item {
     }
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(curveInWorld);
+        Common.world.destroyBody(body);
     }
 }

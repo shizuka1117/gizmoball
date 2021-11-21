@@ -50,7 +50,6 @@ public class ModePane extends JPanel {
                     item.destroyInWorld();
                 }
                 gamePane.addMouseListener(gamePane.getMyMouseListener());
-                gamePane.updateUI();
             }
             //开始游戏
             else if(e.getSource()==button2){

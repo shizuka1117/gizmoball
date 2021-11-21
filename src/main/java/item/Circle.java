@@ -12,7 +12,6 @@ import java.awt.*;
 
 public class Circle extends Item{
     float radius;
-    Body circleInWorld;
 
     //Constructor
     public Circle (Integer x, Integer y, String image) {
@@ -33,8 +32,8 @@ public class Circle extends Item{
         CircleShape cs = new CircleShape();
         cs.m_radius = radius;
         fd.shape = cs;
-        circleInWorld = Common.world.createBody(bd);
-        circleInWorld.createFixture(fd);
+        body = Common.world.createBody(bd);
+        body.createFixture(fd);
     }
 
     @Override
@@ -73,6 +72,6 @@ public class Circle extends Item{
 
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(circleInWorld);
+        Common.world.destroyBody(body);
     }
 }

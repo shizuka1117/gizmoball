@@ -1,5 +1,7 @@
 package item;
 
+import org.jbox2d.dynamics.Body;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,6 +18,7 @@ public abstract class Item extends JComponent {
     double theta;//旋转角度
     transient Image image;
     String imageUrl;
+    transient Body body;
 
     public Item(Integer x, Integer y, String imageUrl){
         setX(x);
@@ -83,6 +86,10 @@ public abstract class Item extends JComponent {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Body getBody() {
+        return body;
     }
 
     //提供统一接口，在子类里进行重写

@@ -14,7 +14,6 @@ import java.awt.*;
 public class LeftSlide extends Item{
     float hw ; //半宽
     float hh ; //半高
-    Body LeftSlide;
 
     //constructor
     public LeftSlide(Integer x, Integer y, String image){
@@ -37,8 +36,8 @@ public class LeftSlide extends Item{
         PolygonShape ps = new PolygonShape();
         ps.setAsBox(hw,hh/5);
         fd.shape = ps;
-        LeftSlide = Common.world.createBody(bd);
-        LeftSlide.createFixture(fd);
+        body = Common.world.createBody(bd);
+        body.createFixture(fd);
     }
 
     @Override
@@ -67,14 +66,14 @@ public class LeftSlide extends Item{
     //移动挡板？
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(LeftSlide);
+        Common.world.destroyBody(body);
     }
 
     public void move(int length){
         /**
          * 设置刚体位置和姿态角，position表示要设置的位置坐标，angle表示要设置的姿态角弧度
          */
-        LeftSlide.setTransform(new Vec2(LeftSlide.getPosition().x + length ,
-                LeftSlide.getPosition().y),0);
+        body.setTransform(new Vec2(body.getPosition().x + length ,
+                body.getPosition().y),0);
     }
 }

@@ -13,7 +13,6 @@ import java.awt.*;
 public class Square extends Item{
     float hw ;
     float hh ; //半宽 & 高
-    Body squareInWorld;
 
     //Constructor
     public Square(Integer x, Integer y, String image){
@@ -40,8 +39,8 @@ public class Square extends Item{
         hh = (float) height /2;
         ps.setAsBox(hw,hh);
         fd.shape = ps;
-        squareInWorld = Common.world.createBody(bd);
-        squareInWorld.createFixture(fd);
+        body = Common.world.createBody(bd);
+        body.createFixture(fd);
     }
 
     @Override
@@ -81,7 +80,7 @@ public class Square extends Item{
 
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(squareInWorld);
+        Common.world.destroyBody(body);
     }
 
 }

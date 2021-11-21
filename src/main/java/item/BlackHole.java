@@ -12,7 +12,6 @@ import java.awt.*;
 
 public class BlackHole extends Item {
     float radius;
-    Body holeInWorld;
 
     //Constructor
     public BlackHole (Integer x, Integer y, String image){
@@ -34,8 +33,8 @@ public class BlackHole extends Item {
         cs.m_radius = radius;
         fd.shape = cs;
         fd.restitution = 1f;
-        holeInWorld = Common.world.createBody(hole);
-        holeInWorld.createFixture(fd);
+        body = Common.world.createBody(hole);
+        body.createFixture(fd);
     }
 
 
@@ -72,6 +71,6 @@ public class BlackHole extends Item {
 
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(holeInWorld);
+        Common.world.destroyBody(body);
     }
 }
