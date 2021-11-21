@@ -60,6 +60,7 @@ public class Square extends Item{
         height = Constant.BASE_HEIGHT * scale;
         hw = (float) width/2;
         hh = (float) height/2;
+        setSize(width, height);
     }
 
     @Override
@@ -71,6 +72,7 @@ public class Square extends Item{
             hw = (float) width/2;
             hh = (float) height/2;
         }
+        setSize(width, height);
     }
 
     @Override

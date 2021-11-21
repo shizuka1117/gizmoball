@@ -19,11 +19,10 @@ public class GamePane extends JPanel implements Runnable {
 
     IconUtil kv = new IconUtil();
     private transient String itemType;
-    private HorizontalSlide hSlide;
-    private VerticalSlide vSlide;
+    private LeftSlide lSlide;
+    private RightSlide rSlide;
     private volatile Boolean stop = false;//标志位，控制线程执行
-    private MyMouseListener myMouseListener = new MyMouseListener();
-    private MyKeyListener myKeyListener = new MyKeyListener();
+    private final MyMouseListener myMouseListener = new MyMouseListener();
     private transient Item curItem;
 
     //静态初始化用于添加Item
@@ -37,9 +36,10 @@ public class GamePane extends JPanel implements Runnable {
 
     public GamePane(){
         addMouseListener(myMouseListener);
-        addKeyListener(myKeyListener);
+        addKeyListener(new MyKeyListener());
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
+        new Common(this);
         //标示边界
         Common.updateBounds(500,500);
     }
@@ -57,27 +57,24 @@ public class GamePane extends JPanel implements Runnable {
         this.curItem = curItem;
     }
 
-    public MyMouseListener newMyMouseListener() {
-        return new MyMouseListener();
-    }
-
     public MyMouseListener getMyMouseListener() {
         return myMouseListener;
     }
 
-    public HorizontalSlide getHSlide() {
-        return hSlide;
-    }
-    public void setHSlide(HorizontalSlide hSlide) {
-        this.hSlide = hSlide;
+    public LeftSlide getLSlide() {
+        return lSlide;
     }
 
-    public VerticalSlide getVSlide() {
-        return vSlide;
+    public void setLSlide(LeftSlide lSlide) {
+        this.lSlide = lSlide;
     }
 
-    public void setVSlide(VerticalSlide vSlide) {
-        this.vSlide = vSlide;
+    public RightSlide getRSlide() {
+        return rSlide;
+    }
+
+    public void setRSlide(RightSlide rSlide) {
+        this.rSlide = rSlide;
     }
 
     public String getItemType() {
@@ -103,6 +100,7 @@ public class GamePane extends JPanel implements Runnable {
         for(int i = 1;i < 20;i ++) {
             g2.drawLine(25*i,0,25*i,500);
         }
+        //绘制每一个Component
         for(Component i: getComponents()){
             i.paint(g);
         }
@@ -155,34 +153,37 @@ public class GamePane extends JPanel implements Runnable {
                 int x = e.getX();
                 int y = e.getY();
                 if(itemType!=null){
+                    System.out.println("点到了");
                     if(!itemType.equals("Click")){
                         try {
                             if(panel.getComponentAt(x, y)==panel){
+                                System.out.println("添加");
                                 Class<Item> onClass = (Class<Item>) Class.forName("item."+ itemType);
                                 Constructor<Item> constructor = onClass.getDeclaredConstructor(Integer.class, Integer.class, String.class);
                                 Item item = constructor.newInstance(x, y, itemType);
                                 item.setImage(kv.getImageIcon(itemType).getImage());
                                 panel.add(item);
-                                if(item instanceof HorizontalSlide)
-                                    setHSlide((HorizontalSlide)item);
-                                if(item instanceof VerticalSlide)
-                                    setVSlide((VerticalSlide)item);
+                                if(item instanceof LeftSlide)
+                                    setLSlide((LeftSlide)item);
+                                if(item instanceof RightSlide)
+                                    setRSlide((RightSlide)item);
                                 panel.repaint();
                             }
                         } catch (Exception exception) {
                             exception.printStackTrace();
                         }
                     }
-                }
-
-                else{
+                    else{
                         //如果button值为click就判断当前点击的位置上是否有component
                         Component component = panel.getComponentAt(x, y);
                         System.out.println(component);
                         if(component!=panel){
-                        panel.setCurItem((Item)component);
+                            panel.setCurItem((Item)component);
+                        }
                     }
                 }
+
+
             }
         }
 
@@ -215,20 +216,39 @@ public class GamePane extends JPanel implements Runnable {
         @Override
         public void keyPressed(KeyEvent e) {
             GamePane panel = (GamePane)e.getSource();
-            HorizontalSlide hSlide = panel.getHSlide();
-            VerticalSlide vSlide = panel.getVSlide();
-            //TODO: 添加对刚体的修改
+            LeftSlide leftSlide = null;
+            RightSlide rightSlide = null;
+            if(panel.getLSlide()!=null)
+              leftSlide = panel.getLSlide();
+            if(panel.getRSlide()!=null)
+                rightSlide = panel.getRSlide();
+            //TODO: 修改挡板判定
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
-                    hSlide.setX(hSlide.getX()-25);break;
+                    if(rightSlide!=null){
+                        rightSlide.setX(rightSlide.getX()-25);
+                        rightSlide.move(-25);
+                    }
+                    break;
                 case KeyEvent.VK_RIGHT:
-                    hSlide.setX(hSlide.getX()+25);break;
+                    if(rightSlide!=null){
+                        rightSlide.setX(rightSlide.getX()+25);
+                        rightSlide.move(25);
+                    }
+                    break;
                 case KeyEvent.VK_A:
-                    vSlide.setX(vSlide.getX()-25);break;
+                    if(leftSlide!=null){
+                        leftSlide.setX(leftSlide.getX()-25);
+                        leftSlide.move(-25);
+                    }
+                    break;
                 case KeyEvent.VK_D:
-                    vSlide.setX(vSlide.getX()+25);break;
+                    if(leftSlide!=null){
+                        leftSlide.setX(leftSlide.getX()+25);
+                        leftSlide.move(25);
+                    }
+                    break;
             }
-
         }
         @Override
         public void keyReleased(KeyEvent e) {

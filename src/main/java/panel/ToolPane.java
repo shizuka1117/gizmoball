@@ -54,7 +54,7 @@ public class ToolPane extends JPanel {
     private class ToolActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            //获取新加入最后一个item;
+            //获取新加入最后一个item
             GameFrame gameFrame = (GameFrame)getRootPane().getParent();
             GamePane gamePane = gameFrame.getGamePane();
             Item item = gamePane.getCurItem();

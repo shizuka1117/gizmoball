@@ -11,24 +11,28 @@ import java.io.IOException;
 import java.util.*;
 
 public class ItemPane extends JPanel {
-    private ItemActionListener itemActionListener = new ItemActionListener();
-    //保存每个item的名称和对应的icon存储位置
     IconUtil kv = new IconUtil();
+    //静态初始化用于显示组件列表
+    {
+        try {
+            kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public ItemPane() {
         Border titleBorder = BorderFactory.createTitledBorder("组件栏");
+        ActionListener itemActionListener = new ItemActionListener();
         setBorder(titleBorder);
         setBackground(Color.WHITE);
         setLayout(new GridLayout(5, 2));
-        try {
-            //获取properties文件的流对象
-            kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
             Enumeration<Object> keys = kv.keys();
-            ButtonGroup group=new ButtonGroup();
-            //遍历枚举
+            //新建ButtonGroup，用于控制单选
+            ButtonGroup group = new ButtonGroup();
+            //遍历枚举，将代表每个组件的JButton和图片添加到ItemPanel和ButtonGroup中
             while (keys.hasMoreElements()) {
-                //取出每个Key
                 String iconName = keys.nextElement().toString();
-                //根据key获取value
                 ImageIcon icon = kv.getImageIcon(iconName);
                 JLabel label = new JLabel();
                 label.setIcon(icon);
@@ -42,17 +46,17 @@ public class ItemPane extends JPanel {
                 add(button);
                 add(label);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         setPreferredSize(new Dimension(100, 300));
     }
 
+    /**
+     * ItemPanel对应的Listener，用于处理RadiaButton点击事件，设置下一个要添加的item类型
+     */
     private class ItemActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String itemName = e.getActionCommand();
-            //获取gamePane，设置nextItemName（下一个要新建的Item类名）
+            //通过GameFrame在GamePane中设置下一个要新建的Item类名
             try {
                 GameFrame gameFrame = (GameFrame) getRootPane().getParent();
                 gameFrame.setNextItemName(itemName);

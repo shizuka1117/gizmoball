@@ -8,7 +8,6 @@ import java.util.*;
  * 用来获取对应的图标
  */
 public class IconUtil extends Properties {
-
         /**
          * 因为LinkedHashSet有序，所以，key在调用put()的时候，存放到这里也就有序。
          */

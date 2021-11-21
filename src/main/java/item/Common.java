@@ -1,15 +1,22 @@
 package item;
 
+import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.Contact;
+import org.jbox2d.dynamics.contacts.Position;
+import panel.GamePane;
 import util.IconUtil;
 
+import java.awt.*;
 import java.util.List;
 
 public class Common {
+    private GamePane gamePane;
     public static World world = new World(new Vec2(0f,10f));
-
     public static final int WIDTH = 500;
     public static final int HIGHT = 500;
 //    public static final float RATE = 25f;
@@ -32,11 +39,52 @@ public class Common {
 //    }
 
 
+    public Common(GamePane gamePane) {
+        this.gamePane = gamePane;
+        world.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                Vec2 position1 = contact.getFixtureA().getBody().getPosition();
+                Vec2 position2 = contact.getFixtureB().getBody().getPosition();
+                Component component1 = gamePane.getComponentAt((int)position1.x, (int)position1.y);
+                Component component2 = gamePane.getComponentAt((int)position2.x, (int)position2.y);
+                //为什么第一次碰撞能检测到component，第二次就检测不到？
+                if(component1 instanceof BlackHole || component2 instanceof BlackHole){
+                    gamePane.stop();
+                    component1 = gamePane.getComponentAt((int)position1.x, (int)position1.y);
+                    component2 = gamePane.getComponentAt((int)position2.x, (int)position2.y);
+                    System.out.println(component1);
+                    System.out.println(component2);
+                    if (component1 instanceof Ball)
+                        gamePane.remove(component1);
+                    else if(component2 instanceof Ball)
+                        gamePane.remove(component2);
+                }
 
+                gamePane.updateUI();
+                //TODO:
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+                System.out.println("endContact");
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold manifold) {
+                System.out.println("preSolve");
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse contactImpulse) {
+                System.out.println("postSolve");
+            }
+        });
+    }
 
     public static void step(){
         world.step(TIME_STEP,6,6);
-        System.out.println(world.getBodyCount());
+//        System.out.println(world.getBodyCount());
     }
 
 

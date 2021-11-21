@@ -53,6 +53,7 @@ public class Circle extends Item{
         width = Constant.BASE_WIDTH * scale;
         height = Constant.BASE_HEIGHT * scale;
         System.out.println("radius++"+radius);
+        setSize(width, height);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class Circle extends Item{
             width = Constant.BASE_WIDTH * scale;
             height = Constant.BASE_HEIGHT * scale;
         }
+        setSize(width, height);
     }
 
     @Override

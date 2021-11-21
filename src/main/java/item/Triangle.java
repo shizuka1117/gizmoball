@@ -84,6 +84,7 @@ public class Triangle extends Item {
         width = Constant.BASE_WIDTH * scale;
         height = Constant.BASE_HEIGHT * scale;
         h = height;
+        setSize(width, height);
     }
 
     @Override
@@ -94,6 +95,7 @@ public class Triangle extends Item {
             height = Constant.BASE_HEIGHT * scale;
             h = height;
         }
+        setSize(width, height);
     }
 
     @Override

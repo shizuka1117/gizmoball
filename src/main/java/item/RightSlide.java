@@ -14,13 +14,15 @@ import java.awt.geom.AffineTransform;
 public class RightSlide extends Item{
     float hw ; //半宽
     float hh ; //半高
-    Body RightSlide;
+    Body LeftSlide;
 
     //constructor
     public RightSlide(Integer x, Integer y, String image){
         super(x,y,image);
-        this.width = 2*Constant.BASE_WIDTH;
-        this.height = Constant.BASE_HEIGHT;
+        //initHorizontalSlide();
+        width = 3*Constant.BASE_WIDTH;
+        height = Constant.BASE_HEIGHT;
+        setSize(width, height);
     }
 
     @Override
@@ -32,13 +34,11 @@ public class RightSlide extends Item{
         bd.type = BodyType.STATIC; //固定不动的
         //刚体内部属性
         FixtureDef fd = new FixtureDef();
-        //多边形
         PolygonShape ps = new PolygonShape();
-        // 将多边形设置为矩形，hw表示矩形半宽，hh表示矩形的半高
-        ps.setAsBox(hw/5,hh);
+        ps.setAsBox(hw,hh/5);
         fd.shape = ps;
-        RightSlide = Common.world.createBody(bd);
-        RightSlide.createFixture(fd);
+        LeftSlide = Common.world.createBody(bd);
+        LeftSlide.createFixture(fd);
     }
 
     @Override
@@ -50,6 +50,16 @@ public class RightSlide extends Item{
     }
 
     @Override
+    public void enlarge(){
+
+    }
+
+    @Override
+    public void reduce(){
+
+    }
+
+    @Override
     public void rotation() {
         theta = (theta+90)%360;
     }
@@ -57,6 +67,14 @@ public class RightSlide extends Item{
     //移动挡板？
     @Override
     public void destroyInWorld(){
-        Common.world.destroyBody(RightSlide);
+        Common.world.destroyBody(LeftSlide);
+    }
+
+    public void move(int length){
+        /**
+         * 设置刚体位置和姿态角，position表示要设置的位置坐标，angle表示要设置的姿态角弧度
+         */
+        LeftSlide.setTransform(new Vec2(LeftSlide.getPosition().x + length ,
+                LeftSlide.getPosition().y),0);
     }
 }

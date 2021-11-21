@@ -22,8 +22,9 @@ public class LeftSlide extends Item{
     public LeftSlide(Integer x, Integer y, String image){
         super(x,y,image);
         //initHorizontalSlide();
-        this.width = 2*Constant.BASE_WIDTH;
-        this.height = Constant.BASE_HEIGHT;
+        width = 3*Constant.BASE_WIDTH;
+        height = Constant.BASE_HEIGHT;
+        setSize(width, height);
     }
 
     @Override

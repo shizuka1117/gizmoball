@@ -9,18 +9,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ModePane extends JPanel {
-    JButton button1;
-    JButton button2;
+    private final JButton button1 = new JButton("布局模式");;
+    private final JButton button2 = new JButton("游玩模式");
     public ModePane() {
+
         setBackground(Color.white);
         Border titleBorder = BorderFactory.createTitledBorder("模式栏");
         setBorder(titleBorder);
         setPreferredSize(new Dimension(100, 100));
-        button1 = new JButton("布局模式");
         button1.setMargin(new Insets(0,0,0,0));
         button1.setPreferredSize(new Dimension(80, 20));
 
-        button2 = new JButton("游玩模式");
         button2.setPreferredSize(new Dimension(80, 20));
         button2.setMargin(new Insets(0,0,0,0));
 
@@ -32,7 +31,10 @@ public class ModePane extends JPanel {
         add(button2);
 
     }
-
+    /**
+     * ModePanel对应的Listener，用于切换游戏模式
+     */
+    //TODO: 重新布局时检测
      private class ModeActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -46,9 +48,10 @@ public class ModePane extends JPanel {
                     Item item = (Item) gamePane.getComponent(i);
                     item.destroyInWorld();
                 }
-                gamePane.addMouseListener(gamePane.newMyMouseListener());
+                gamePane.addMouseListener(gamePane.getMyMouseListener());
                 gamePane.updateUI();
             }
+            //开始游戏
             else if(e.getSource()==button2){
                 button1.setEnabled(true);
                 button2.setEnabled(false);
@@ -59,6 +62,8 @@ public class ModePane extends JPanel {
                 gamePane.begin();
                 gamePane.requestFocus();
                 gamePane.removeMouseListener(gamePane.getMyMouseListener());
+                System.out.println(gamePane.getMyMouseListener());
+                System.out.println(gamePane.hashCode());
                 new Thread(gamePane).start();
             }
         }
