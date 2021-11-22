@@ -30,9 +30,8 @@ public class Item extends JComponent {
     transient Body body;
 
     public Item(Integer x, Integer y, String imageUrl){
-        /**
-         * 通过setX() & setY() 将鼠标点击位置转换为左上角坐标，使对应的图形画在格子内部（正中间）
-         */
+
+        //通过setX() & setY() 将鼠标点击位置转换为左上角坐标，使对应的图形画在格子内部（正中间）
         setX(x);
         setY(y);
         setImageUrl(imageUrl);
