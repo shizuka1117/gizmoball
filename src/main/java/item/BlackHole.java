@@ -23,6 +23,7 @@ public class BlackHole extends Item {
     public void initInWorld() {
         // 定义刚体，设置刚体位置和类型
         BodyDef hole = new BodyDef();
+        //圆形刚体位置：圆心
         hole.position = new Vec2(x+radius,y+radius);
         hole.type = BodyType.STATIC;
         // 设置刚体的物理描述，包括类型、形状和大小

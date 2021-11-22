@@ -42,12 +42,11 @@ public class LeftSlide extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
         g2d.drawImage(image, x, y, width, height,null);
     }
 
     /**
-     * 移动挡板
+     * 移动挡板（刚体）的方法
      */
     public void move(int length){
         //设置刚体位置和姿态角，position表示要设置的位置坐标，angle表示要设置的姿态角弧度

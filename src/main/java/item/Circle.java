@@ -23,6 +23,7 @@ public class Circle extends Item{
     public void initInWorld() {
         // 定义刚体，设置刚体类型、位置和物理属性
         BodyDef bd = new BodyDef();
+        //圆形刚体位置：圆心
         bd.position = new Vec2(x+radius,y+radius);
         bd.type = BodyType.STATIC;
         FixtureDef fd = new FixtureDef();

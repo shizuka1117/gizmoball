@@ -9,6 +9,9 @@ import java.awt.*;
 
 public class Rail extends Item{
     float hw,hh; // 半高 半宽
+    /**
+     * 直道的实现：通过两个细长的矩形模拟管道。因此分别创建两个刚体rail1 & rail2
+     */
     Body rail1;
     Body rail2;
 
@@ -32,12 +35,12 @@ public class Rail extends Item{
         PolygonShape ps1 = new PolygonShape();
         PolygonShape ps2 = new PolygonShape();
 
-        if(theta == 0 || theta == 180 ){ // 如果轨道是竖的
+        if(theta == 0 || theta == 180 ){ // 如果管道是竖的
             bd1.position = new Vec2(x - hw ,y + hh);
             ps1.setAsBox(hw, hh);
             bd2.position = new Vec2(x + width + hw ,y + hh);
             ps2.setAsBox(hw,hh);
-        }else if(theta == 90 || theta == 270){ // 如果轨道是横的
+        }else if(theta == 90 || theta == 270){ // 如果管道是横的
             bd2.position = new Vec2(x + hh, y + hw + height);
             ps2.setAsBox((float)height/2,hw);
         }
@@ -76,6 +79,7 @@ public class Rail extends Item{
         }
     }
 
+    //回到布局模式时要分别删除原来创建的刚体
     @Override
     public void destroyInWorld(){
         Common.world.destroyBody(rail1);

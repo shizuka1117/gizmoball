@@ -26,6 +26,7 @@ public class Ball extends Item {
     public void initInWorld(){
         // 定义刚体，设置刚体类型和位置
         BodyDef bd = new BodyDef();
+        //球形刚体位置：质心/圆心
         bd.position = new Vec2(x+radius,y+radius);
         bd.type = BodyType.DYNAMIC;// 可运动的
         // 设置刚体的物理描述，包括类型、形状和大小

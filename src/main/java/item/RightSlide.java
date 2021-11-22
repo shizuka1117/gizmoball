@@ -41,10 +41,12 @@ public class RightSlide extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
         g2d.drawImage(image, x, y, width, height,null);
     }
 
+    /**
+     * 移动挡板（刚体）的方法
+     */
     public void move(int length){
         body.setTransform(new Vec2(body.getPosition().x + length ,
                 body.getPosition().y),0);

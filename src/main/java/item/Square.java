@@ -30,8 +30,6 @@ public class Square extends Item{
         FixtureDef fd = new FixtureDef();
         PolygonShape ps = new PolygonShape();
         // 将形状设置为矩形，hw表示矩形半宽，hh表示矩形的半高
-        hw = (float) width /2;
-        hh = (float) height /2;
         ps.setAsBox(hw,hh);
         fd.shape = ps;
         body = Common.world.createBody(bd);
@@ -42,6 +40,7 @@ public class Square extends Item{
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
+        //正方形图片的旋转：以正方形中心为旋转中心
         g2d.rotate(Math.toRadians(theta),x+hw,y+hh);
         g2d.drawImage(image, x, y, width, height,null);
     }
@@ -51,6 +50,7 @@ public class Square extends Item{
         scale += 1;
         width = Item.BASE_WIDTH * scale;
         height = Item.BASE_HEIGHT * scale;
+        //放大缩小时，半高半宽也随之更新
         hw = (float) width /2;
         hh = (float) height /2;
         setSize(width, height);
