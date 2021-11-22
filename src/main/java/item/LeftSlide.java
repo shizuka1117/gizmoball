@@ -27,6 +27,7 @@ public class LeftSlide extends Item{
         BodyDef bd = new BodyDef();
         hw = (float) width /2;
         hh = (float) height /2;
+        //矩形刚体的position 记录矩形的对角线中心位置
         bd.position = new Vec2(x + hw, y + hh);
         bd.type = BodyType.STATIC; //固定不动的
         FixtureDef fd = new FixtureDef();

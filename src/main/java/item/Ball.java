@@ -67,7 +67,7 @@ public class Ball extends Item {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        System.out.println(getX()+" "+getY());
+        //System.out.println(getX()+" "+getY());
         g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
         g2d.drawImage(image,getX(), getY(), width, height,null);
         g2d.dispose();

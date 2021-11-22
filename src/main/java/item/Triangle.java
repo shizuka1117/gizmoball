@@ -19,9 +19,8 @@ public class Triangle extends Item {
         super(x,y,image);
         this.width = Item.BASE_WIDTH;
         this.height = Item.BASE_HEIGHT;
-        /**
-         * worldX, worldY 表示三角形刚体位置，用左上角横、纵坐标分别除以2
-         */
+
+        //worldX, worldY 表示三角形刚体位置，用左上角横、纵坐标分别除以2
         this.worldX = (float) super.x/2;
         this.worldY = (float) super.y/2;
     }
