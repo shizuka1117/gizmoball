@@ -17,7 +17,7 @@ public class GameFrame extends JFrame {
     IconUtil kv = new IconUtil();
     private GamePane gamePane;
 
-    //静态代码块，初始化加载图片
+    // 静态代码块，初始化加载图片
     {
         try {
             kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
@@ -27,7 +27,7 @@ public class GameFrame extends JFrame {
     }
 
     public GameFrame(){
-        //初始化GameFrame顶层窗口
+        // 初始化GameFrame顶层窗口
         setTitle("Gizmo Ball");
         setLayout(new FlowLayout());
         setResizable(false);
@@ -38,14 +38,14 @@ public class GameFrame extends JFrame {
         });
         setSize(750, 500);
 
-        //初始化菜单
+        // 初始化菜单
         MenuPane menuPane = new MenuPane();
         setJMenuBar(menuPane);
 
-        //初始化游戏面板
+        // 初始化游戏面板
         setGamePane(new GamePane());
 
-        //初始化右侧工具面板
+        // 初始化右侧工具面板
         JPanel rightPane = new JPanel();
         rightPane.setPreferredSize(new Dimension(220, 500));
         rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.Y_AXIS));
@@ -109,7 +109,7 @@ public class GameFrame extends JFrame {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             setGamePane((GamePane)objectInputStream.readObject());
-            //Image不能序列化，因此重新加载GamePane时也要重新加载每个item的Image
+            // Image不能序列化，因此重新加载GamePane时也要重新加载每个item的Image
             for(int i = 0; i<gamePane.getComponentCount(); i++){
                 Item item = ((Item)gamePane.getComponent(i));
                 String imageUrl = item.getImageUrl();

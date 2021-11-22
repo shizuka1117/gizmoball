@@ -42,25 +42,24 @@ public class ModePane extends JPanel {
 
             GameFrame gameFrame = (GameFrame) getRootPane().getParent();
             GamePane gamePane = gameFrame.getGamePane();
-            //布局模式
+            // 布局模式
             if(e.getSource()==button1) {
-                //停止GamePane线程
+                // 停止GamePane线程
                 button2.setEnabled(true);
                 button1.setEnabled(false);
                 gamePane.stop();
-
-                //恢复添加item的监听器
+                // 恢复添加item的监听器
                 gamePane.addMouseListener(gamePane.getMyMouseListener());
             }
             //游戏模式
             else if(e.getSource()==button2){
                 button1.setEnabled(true);
                 button2.setEnabled(false);
-                //设置gamePane线程的循环标志位
+                // 设置gamePane线程的循环标志位
                 gamePane.begin();
-                //设置gamePane能够获取键盘输入
+                // 设置gamePane能够获取键盘输入
                 gamePane.requestFocus();
-                //移除gamePane的鼠标监听（防止在游玩过程中添加item）
+                // 移除gamePane的鼠标监听（防止在游玩过程中添加item）
                 gamePane.removeMouseListener(gamePane.getMyMouseListener());
                 new Thread(gamePane).start();
             }

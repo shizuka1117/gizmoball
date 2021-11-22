@@ -59,7 +59,7 @@ public class ToolPane extends JPanel {
             GameFrame gameFrame = (GameFrame)getRootPane().getParent();
             GamePane gamePane = gameFrame.getGamePane();
             Item item = gamePane.getCurItem();
-            //获取新加入的最后一个item，如果不为空则对其进行相应操作
+            // 获取新加入的最后一个item，如果不为空则对其进行相应操作
             if(item!=null){
                 switch (e.getActionCommand()){
                     case "rotate":

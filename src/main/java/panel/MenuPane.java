@@ -35,7 +35,7 @@ public class MenuPane extends JMenuBar {
     private class MenuClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String menuItemName = e.getActionCommand();
-            //处理不同的menu事件
+            // 处理不同的menu事件
             switch (menuItemName){
                 case "new":
                     newGame();
@@ -52,21 +52,20 @@ public class MenuPane extends JMenuBar {
         private void newGame() {
             GameFrame gameFrame = (GameFrame) getRootPane().getParent();
             GamePane gamePane = gameFrame.getGamePane();
-            //删除之前的所有组件
+            // 删除之前的所有组件
             for (Component c:gamePane.getComponents())
                 gamePane.remove(c);
-            //需要手动立即更新UI，否则删除的组件仍会显示
+            // 需要手动立即更新UI，否则删除的组件仍会显示
             gamePane.updateUI();
         }
 
         public void saveGame(){
-            //保存时自动应用设计模式，停止动画
             JFileChooser chooser = new JFileChooser();
             int option = chooser.showSaveDialog(null);
-            //文件保存逻辑
-            if(option==JFileChooser.APPROVE_OPTION){	//假如用户选择了保存
+            // 文件保存逻辑
+            if(option==JFileChooser.APPROVE_OPTION){	// 假如用户选择了保存
                 File file = chooser.getSelectedFile();
-                String fName = chooser.getName(file);	//从文件名输入框中获取文件名
+                String fName = chooser.getName(file);	// 从文件名输入框中获取文件名
                 if(!fName.contains(".gizmo")){
                     file = new File(chooser.getCurrentDirectory(),fName+".gizmo");
                     System.out.println("renamed");

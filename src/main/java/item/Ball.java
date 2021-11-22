@@ -6,7 +6,6 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import util.Common;
-import util.Constant;
 
 import java.awt.*;
 
@@ -16,29 +15,27 @@ import java.awt.*;
 public class Ball extends Item {
     float radius;
 
-    // 是否被吸收,是则不再显示
-    private boolean isAbsorbed = false;
-
     public Ball(Integer x, Integer y, String image) {
         super(x, y, image);
-        this.radius = (float) Constant.BASE_RADIUS;
-        this.width = Constant.BASE_WIDTH;
-        this.height = Constant.BASE_HEIGHT;
+        this.radius = (float) Item.BASE_RADIUS;
+        this.width = Item.BASE_WIDTH;
+        this.height = Item.BASE_HEIGHT;
     }
 
     @Override
     public void initInWorld(){
-        //定义刚体
+        // 定义刚体，设置刚体类型和位置
         BodyDef bd = new BodyDef();
         bd.position = new Vec2(x+radius,y+radius);
-        bd.type = BodyType.DYNAMIC;
-        //定义描述
+        bd.type = BodyType.DYNAMIC;// 可运动的
+        // 设置刚体的物理描述，包括类型、形状和大小
         FixtureDef fd = new FixtureDef();
         CircleShape cs = new CircleShape();
         cs.m_radius = radius;
         fd.shape = cs;
         fd.restitution = 1f;
         fd.friction = 0.5f;
+        //创建刚体
         body = Common.world.createBody(bd);
         body.createFixture(fd);
     }
@@ -49,7 +46,7 @@ public class Ball extends Item {
             X = (int)(body.getPosition().x - radius);
         }
         else {
-            X = x; //x y 记录初始位置， X Y 记录实时位置
+            X = x; // x y 记录初始位置， X Y 记录实时位置
         }
         return X;
     }
@@ -68,22 +65,19 @@ public class Ball extends Item {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        if(!isAbsorbed){
-            Graphics2D g2d = (Graphics2D) g.create();
-            System.out.println(getX()+" "+getY());
-            g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
-            g2d.drawImage(image,getX(), getY(), width, height,null);
-            g2d.dispose();
-        }
-
+        Graphics2D g2d = (Graphics2D) g.create();
+        System.out.println(getX()+" "+getY());
+        g2d.rotate(Math.toRadians(theta),x+radius,y+radius);
+        g2d.drawImage(image,getX(), getY(), width, height,null);
+        g2d.dispose();
     }
 
     @Override
     public void enlarge(){
         scale += 1;
-        radius = (float)Constant.BASE_RADIUS*scale;
-        width = Constant.BASE_WIDTH * scale;
-        height = Constant.BASE_HEIGHT * scale;
+        radius = (float)Item.BASE_RADIUS*scale;
+        width = Item.BASE_WIDTH * scale;
+        height = Item.BASE_HEIGHT * scale;
         setSize(width, height);
     }
 
@@ -91,16 +85,10 @@ public class Ball extends Item {
     public void reduce(){
         if (scale > 1){
             scale -= 1;
-            radius = (float)Constant.BASE_RADIUS * scale;
-            width = Constant.BASE_WIDTH * scale;
-            height = Constant.BASE_HEIGHT * scale;
+            radius = (float)Item.BASE_RADIUS * scale;
+            width = Item.BASE_WIDTH * scale;
+            height = Item.BASE_HEIGHT * scale;
         }
         setSize(width, height);
-    }
-
-    @Override
-    public void destroyInWorld(){
-        Common.world.destroyBody(body);
-        body = null;
     }
 }

@@ -22,14 +22,15 @@ import util.IconUtil;
 public class GamePane extends JPanel implements Runnable {
 
     IconUtil kv = new IconUtil();
-    private transient String itemType;
+    // 左右挡板
     private LeftSlide lSlide;
     private RightSlide rSlide;
-    private volatile Boolean stop = false;//标志位，控制线程执行
+    private volatile Boolean stop = false;// 标志位，控制线程执行
     private final MyMouseListener myMouseListener = new MyMouseListener();
-    private transient Item curItem;
+    private transient String itemType;// 用于添加下一个组件
+    private transient Item curItem;// 指向当前选择的组件
 
-    //静态初始化用于添加Item
+    // 静态初始化用于添加Item
     {
         try {
             kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
@@ -44,7 +45,7 @@ public class GamePane extends JPanel implements Runnable {
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
         new Common(this);
-        //标示边界
+        // 标示边界
         Common.updateBounds(500,500);
     }
 
@@ -91,9 +92,9 @@ public class GamePane extends JPanel implements Runnable {
 
     @Override
     public void paint(Graphics g) {
-        //强制类型转换得到Graphics子类Graphics2D对象
+        // 强制类型转换得到Graphics子类Graphics2D对象
         Graphics2D g2 = (Graphics2D)g;
-        //绘制格子
+        // 绘制格子
         g2.setColor(Color.black);
         g2.fill3DRect(0, 0, 500, 500, true);
         g2.setColor(Color.white);
@@ -104,7 +105,7 @@ public class GamePane extends JPanel implements Runnable {
         for(int i = 1;i < 20;i ++) {
             g2.drawLine(25*i,0,25*i,500);
         }
-        //绘制每一个Component
+        // 绘制每一个Component
         for(Component i: getComponents()){
             i.paint(g);
         }
@@ -169,10 +170,10 @@ public class GamePane extends JPanel implements Runnable {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            //可以获取
+            // 可以获取
             if(MouseEvent.BUTTON1 == e.getButton()){
                 GamePane panel = (GamePane) e.getSource();
-                //当类型不为箭头时，根据item类型创建并加入
+                // 当类型不为箭头时，根据item类型创建并加入
                 String itemType = panel.getItemType();
                 int x = e.getX();
                 int y = e.getY();
@@ -186,7 +187,7 @@ public class GamePane extends JPanel implements Runnable {
                                 Item item = constructor.newInstance(x, y, itemType);
                                 item.setImage(kv.getImageIcon(itemType).getImage());
                                 panel.add(item);
-                                //如果加入的是挡板，需要额外设置为GamePane的属性，便于后续处理键盘事件监听
+                                // 如果加入的是挡板，需要额外设置为GamePane的属性，便于后续处理键盘事件监听
                                 if(item instanceof LeftSlide)
                                     setLSlide((LeftSlide)item);
                                 if(item instanceof RightSlide)
@@ -198,10 +199,10 @@ public class GamePane extends JPanel implements Runnable {
                         }
                     }
                     else{
-                        //如果button值为click，就判断当前点击的位置上是否有component
+                        // 如果button值为click，就判断当前点击的位置上是否有component
                         Component component = panel.getComponentAt(x, y);
                         System.out.println(component);
-                        //如果位置上没有GamePane以外的Component，则可以添加
+                        // 如果位置上没有GamePane以外的Component，则可以添加
                         if(component!=panel){
                             panel.setCurItem((Item)component);
                         }
@@ -244,12 +245,12 @@ public class GamePane extends JPanel implements Runnable {
             GamePane panel = (GamePane)e.getSource();
             LeftSlide leftSlide = null;
             RightSlide rightSlide = null;
-            //获取左右挡板（如果有的话）
+            // 获取左右挡板（如果有的话）
             if(panel.getLSlide()!=null)
               leftSlide = panel.getLSlide();
             if(panel.getRSlide()!=null)
                 rightSlide = panel.getRSlide();
-            //根据键盘输入修改对应Slide的位置
+            // 根据键盘输入修改对应Slide的位置
             switch (e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
                     if(rightSlide!=null){

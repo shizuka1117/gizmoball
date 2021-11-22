@@ -6,32 +6,30 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import util.Common;
-import util.Constant;
 
 import java.awt.*;
 
 public class Circle extends Item{
     float radius;
 
-    //Constructor
     public Circle (Integer x, Integer y, String image) {
         super(x, y, image);
-        this.radius = (float) Constant.BASE_RADIUS;
-        this.width = Constant.BASE_WIDTH;
-        this.height = Constant.BASE_HEIGHT;
+        this.radius = (float) Item.BASE_RADIUS;
+        this.width = Item.BASE_WIDTH;
+        this.height = Item.BASE_HEIGHT;
     }
 
     @Override
     public void initInWorld() {
-        BodyDef bd = new BodyDef();  // 定义刚体
+        // 定义刚体，设置刚体类型、位置和物理属性
+        BodyDef bd = new BodyDef();
         bd.position = new Vec2(x+radius,y+radius);
-        bd.type = BodyType.STATIC; //固定不动的
-        //刚体内部属性
-        FixtureDef fd = new FixtureDef(); //默认
-        //圆形
+        bd.type = BodyType.STATIC;
+        FixtureDef fd = new FixtureDef();
         CircleShape cs = new CircleShape();
         cs.m_radius = radius;
         fd.shape = cs;
+        // 创建刚体
         body = Common.world.createBody(bd);
         body.createFixture(fd);
     }
@@ -47,9 +45,9 @@ public class Circle extends Item{
     @Override
     public void enlarge(){
         scale += 1;
-        radius = (float)Constant.BASE_RADIUS*scale;
-        width = Constant.BASE_WIDTH * scale;
-        height = Constant.BASE_HEIGHT * scale;
+        radius = (float)Item.BASE_RADIUS*scale;
+        width = Item.BASE_WIDTH * scale;
+        height = Item.BASE_HEIGHT * scale;
         System.out.println("radius++"+radius);
         setSize(width, height);
     }
@@ -58,15 +56,11 @@ public class Circle extends Item{
     public void reduce(){
         if (scale > 1){
             scale -= 1;
-            radius = (float)Constant.BASE_RADIUS * scale;
-            width = Constant.BASE_WIDTH * scale;
-            height = Constant.BASE_HEIGHT * scale;
+            radius = (float)Item.BASE_RADIUS * scale;
+            width = Item.BASE_WIDTH * scale;
+            height = Item.BASE_HEIGHT * scale;
         }
         setSize(width, height);
     }
 
-    @Override
-    public void destroyInWorld(){
-        Common.world.destroyBody(body);
-    }
 }

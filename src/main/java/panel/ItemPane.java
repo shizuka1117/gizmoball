@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class ItemPane extends JPanel {
     IconUtil kv = new IconUtil();
-    //静态初始化用于显示组件列表
+    // 静态初始化用于显示组件列表
     {
         try {
             kv.load(this.getClass().getClassLoader().getResourceAsStream("properties/item.properties"));
@@ -31,9 +31,9 @@ public class ItemPane extends JPanel {
         setBackground(Color.WHITE);
         setLayout(new GridLayout(5, 2));
             Enumeration<Object> keys = kv.keys();
-            //新建ButtonGroup，用于控制单选
+            // 新建ButtonGroup，用于控制单选
             ButtonGroup group = new ButtonGroup();
-            //遍历枚举，将代表每个组件的JButton和图片添加到ItemPanel和ButtonGroup中
+            // 遍历枚举，将代表每个组件的JButton和图片添加到ItemPanel和ButtonGroup中
             while (keys.hasMoreElements()) {
                 String iconName = keys.nextElement().toString();
                 ImageIcon icon = kv.getImageIcon(iconName);
@@ -59,7 +59,7 @@ public class ItemPane extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             String itemName = e.getActionCommand();
-            //通过GameFrame在GamePane中设置下一个要新建的Item类名
+            // 通过GameFrame在GamePane中设置下一个要新建的Item类名
             try {
                 GameFrame gameFrame = (GameFrame) getRootPane().getParent();
                 gameFrame.setNextItemName(itemName);

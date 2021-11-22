@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.*;
 
 /**
- * 用来获取对应的图标
+ * 用来获取对应的图标，使得图标在ItemPane上有序显示。
  */
 public class IconUtil extends Properties {
         /**
@@ -43,7 +43,12 @@ public class IconUtil extends Properties {
             return Collections.enumeration(keys);
         }
 
-        public ImageIcon getImageIcon(String iconName){
+    /**
+     * 通过iconName获取对应的ImageIcon
+     * @param iconName
+     * @return 相应的ImageIcon
+     */
+    public ImageIcon getImageIcon(String iconName){
             ImageIcon icon = new ImageIcon(getProperty(iconName));
             icon.setImage(icon.getImage().getScaledInstance(40, 40,
                     Image.SCALE_AREA_AVERAGING));

@@ -1,26 +1,30 @@
 package item;
 
 import org.jbox2d.dynamics.Body;
+import util.Common;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-//TODO:编写继承Item的子类
-//TODO:运动过程中component的位置和大小也要修改
-/**
- * 继承Jcomponent用于画图，并且JComponent已经实现了Serializable可以用于序列化保存
- */
-//TODO:修改setX和setY，使其落在格子内部
-public abstract class Item extends JComponent {
 
-    int x = 50;//左上角x坐标
-    int y = 50;//左上角y坐标
+/**
+ * 继承JComponent用于画图，并且JComponent已经实现了Serializable，可以直接用于序列化保存
+ */
+public class Item extends JComponent {
+    // Item类族内部用到的一些常量
+    public static final double BASE_LENGTH = 25;  // 一个格子的大小
+    public static final double BASE_RADIUS = BASE_LENGTH/2;
+    public static final int BASE_WIDTH = 25;
+    public static final int BASE_HEIGHT = 25;
+
+    int x = 50;// 左上角x坐标
+    int y = 50;// 左上角y坐标
     int width;
     int height;
-    int scale;//放大倍数（必须>=1）
-    double theta;//旋转角度
+    int scale;// 放大倍数（必须>=1）
+    double theta;// 旋转角度
     transient Image image;
     String imageUrl;
     transient Body body;
@@ -33,6 +37,43 @@ public abstract class Item extends JComponent {
         this.scale = 1;
         this.theta = 0;
         setVisible(true);
+    }
+
+    // 工具操作，提供统一接口，在子类里进行重写
+    /**
+     * 放大
+     */
+    public void enlarge(){
+
+    }
+
+    /**
+     * 缩小
+     */
+    public void reduce(){
+
+    }
+
+    /**
+     * 旋转
+     */
+    public void rotate(){
+        theta = (theta+90)%360;
+    }
+
+    /**
+     * 在world中创建该item对应的刚体
+     */
+    public void initInWorld(){
+
+    }
+
+    /**
+     * 在world里删除对应的刚体
+     */
+    public void destroyInWorld(){
+        Common.world.destroyBody(body);
+        body = null;
     }
 
     @Override
@@ -50,7 +91,7 @@ public abstract class Item extends JComponent {
      * @param x
      */
     public void setX(int x) {
-        this.x = x/25*25;
+        this.x = x/BASE_WIDTH*BASE_WIDTH;
     }
 
     /**
@@ -58,7 +99,7 @@ public abstract class Item extends JComponent {
      * @param y
      */
     public void setY(int y) {
-        this.y = y/25*25;
+        this.y = y/BASE_HEIGHT*BASE_HEIGHT;
     }
 
     public double getScale() {
@@ -96,17 +137,4 @@ public abstract class Item extends JComponent {
     public Body getBody() {
         return body;
     }
-
-    //提供统一接口，在子类里进行重写
-    public abstract void enlarge(); //放大
-
-    public abstract void reduce();  //缩小
-
-    public void rotate(){
-        theta = (theta+90)%360;
-    } //旋转
-
-    public abstract void initInWorld();  //在world中创建该item对应的刚体
-
-    public abstract void destroyInWorld(); //在world里删除对应的刚体
 }

@@ -6,54 +6,49 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import util.Common;
-import util.Constant;
 
 import java.awt.*;
 
-import static util.Constant.BASE_HEIGHT;
-
 public class Curve extends Item {
     float worldX, worldY; //坐标/2
-    int count = 3; //vertex number
-    int h = Constant.BASE_HEIGHT ; //三角形边长
+    int count = 3; // vertex number
+    int h = Item.BASE_HEIGHT ; //三角形边长
 
-    //Constructor
     public Curve(Integer x, Integer y, String image){
         super(x,y,image);
-        this.width = Constant.BASE_WIDTH;
-        this.height = Constant.BASE_HEIGHT;
-        this.worldX = (float) super.x/2;
-        this.worldY = (float) super.y/2;
-        System.out.println(worldX+ " " + worldY);
+        this.width = Item.BASE_WIDTH;
+        this.height = Item.BASE_HEIGHT;
+        this.worldX = (float) x/2;
+        this.worldY = (float) y/2;
     }
 
     @Override
     public void initInWorld() {
         BodyDef bd = new BodyDef();  // 定义刚体
-
-        bd.type = BodyType.STATIC; //固定不动的
-        //刚体内部属性
+        bd.type = BodyType.STATIC;
+        // 设置刚体内部属性
         FixtureDef fd = new FixtureDef();
         PolygonShape ps = new PolygonShape();
 
         bd.position = new Vec2(worldX,worldY);
+        // 根据theta参数修改刚体
         if(theta == 0){
-            ps.set(new Vec2[] {new Vec2(worldX,worldY+h/4),
-                    new Vec2(worldX+h/2,worldY+h),
-                    new Vec2(worldX,worldY+h) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+            ps.set(new Vec2[] {new Vec2(worldX,worldY+(float)h/4),
+                    new Vec2(worldX+(float)h/2,worldY+h),
+                    new Vec2(worldX,worldY+h) }, count); // 传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
         }else if(theta == 90){
-            //由左上角的坐标得到顶点数组
+            // 由左上角的坐标得到顶点数组
             ps.set(new Vec2[] {new Vec2(worldX,worldY),
-                    new Vec2(worldX+3*h/4,worldY),
-                    new Vec2(worldX,worldY+h/2) }, count); //传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
+                    new Vec2(worldX+3*(float)h/4,worldY),
+                    new Vec2(worldX,worldY+(float)h/2) }, count); // 传入顶点序列中第1个顶点坐标的引用，count表示顶点的数量
         }else if(theta == 180){
-            ps.set(new Vec2[] {new Vec2(worldX+h/2,worldY),
+            ps.set(new Vec2[] {new Vec2(worldX+(float)h/2,worldY),
                     new Vec2(worldX+h,worldY),
-                    new Vec2(worldX+h,worldY+3*h/4) }, count);
+                    new Vec2(worldX+h,worldY+3*(float)h/4) }, count);
         }else if(theta == 270){
-            ps.set(new Vec2[] {new Vec2(worldX+h,worldY+h/4),
+            ps.set(new Vec2[] {new Vec2(worldX+h,worldY+(float)h/4),
                     new Vec2(worldX+h,worldY+h),
-                    new Vec2(worldX+h/2,worldY+h) }, count);
+                    new Vec2(worldX+(float)h/2,worldY+h) }, count);
         }
 
         fd.shape = ps;
@@ -68,16 +63,16 @@ public class Curve extends Item {
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.rotate(Math.toRadians(theta),x + h/2,y + h/2);
-        g2d.drawImage(image, x, y, width,height,null);
-        g2d.drawImage(image, x, y, width,height,null);
+        g2d.rotate(Math.toRadians(theta),x + (float)h/2,y + (float)h/2);
+        g2d.drawImage(image, x, y, width, height,null);
+        g2d.drawImage(image, x, y, width, height,null);
 
     }
 
     @Override
     public void enlarge(){
         scale += 1;
-        width = Constant.BASE_WIDTH * scale;
+        width = Item.BASE_WIDTH * scale;
         height = BASE_HEIGHT * scale;
         h = height;
     }
@@ -86,14 +81,9 @@ public class Curve extends Item {
     public void reduce(){
         if (scale > 1){
             scale -= 1;
-            width = Constant.BASE_WIDTH * scale;
+            width = Item.BASE_WIDTH * scale;
             height = BASE_HEIGHT * scale;
             h = height;
         }
-    }
-
-    @Override
-    public void destroyInWorld(){
-        Common.world.destroyBody(body);
     }
 }
